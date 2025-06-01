@@ -1,0 +1,357 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes abstractGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.blue-green-gradient {
+  background: linear-gradient(
+    135deg,
+    #0ea5e9,
+    #06b6d4,
+    #0891b2,
+    #0e7490,
+    #155e75,
+    #164e63,
+    #065f46,
+    #047857,
+    #059669,
+    #10b981,
+    #34d399
+  );
+  background-size: 600% 600%;
+  animation: abstractGradient 12s ease-in-out infinite;
+  position: relative;
+}
+
+.blue-green-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at 25% 25%,
+    rgba(14, 165, 233, 0.2) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 75% 75%,
+    rgba(16, 185, 129, 0.3) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 50% 10%,
+    rgba(6, 182, 212, 0.15) 0%,
+    transparent 50%
+  );
+  animation: abstractGradient 18s ease-in-out infinite reverse;
+}
+
+/* Quote section background pattern */
+.quote-section-bg {
+  background: linear-gradient(135deg, 
+    #f8fafc 0%, 
+    #e0f2fe 25%, 
+    #ecfdf5 50%, 
+    #f1f5f9 75%, 
+    #f8fafc 100%);
+  position: relative;
+}
+
+.quote-section-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.30) 0%, transparent 60%),
+    radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.20) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.quote-section-pattern {
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.3) 1px, transparent 0);
+  background-size: 30px 30px;
+}
+
+/* Custom scrollbar styles for smooth performance */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(16 185 129 / 0.3) rgb(229 231 235);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgb(229 231 235);
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgb(16 185 129 / 0.5);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgb(16 185 129 / 0.7);
+}
+
+/* Smooth scrolling performance */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+}
+
+/* Hardware acceleration for better performance */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Hero section static grid pattern overlay */
+.hero-grid-pattern::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.25) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(0,0,0,0.25) 2px, transparent 2px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Video text clipping mask styles */
+.video-text-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 5;
+}
+
+/* Enhanced video text mask container */
+.video-text-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Video mask positioning */
+.video-mask-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Enhanced text clipping with better browser support */
+.text-clip-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Alternative clipping method using background-clip for better browser support */
+.video-text-clip {
+  background: url('/car-video.mp4') center/cover;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure video positioning is correct */
+.video-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Mix blend mode for better integration */
+.video-text-blend {
+  mix-blend-mode: multiply;
+  filter: contrast(1.2) saturate(1.1);
+}
+
+/* Gradient animation for fallback text effect */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive video scaling */
+@media (max-width: 768px) {
+  .video-text-mask {
+    transform: scale(1.2);
+  }
+}
+
+/* Video Text Masking Styles */
+.video-text-mask {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ensure video mask performance */
+video[style*="mask"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Video clipping container */
+.video-clip-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-clip-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
