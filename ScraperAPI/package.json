@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "idxscraper",
-=======
   "name": "insurance-scraper",
->>>>>>> master
   "version": "1.0.0",
   "description": "Insurance quote scraper for Insure24",
   "main": "dist/server.js",
@@ -16,11 +12,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-<<<<<<< HEAD
-    "@types/cors": "^2.8.18",
-=======
     "@types/cors": "^2.8.19",
->>>>>>> master
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",

@@ -1,5 +1,21 @@
 // API service for communicating with ScraperAPI
-const API_BASE_URL = 'http://localhost:3000/api';
+const getApiBaseUrl = () => {
+  // Check if we have an environment variable set
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // If accessing via network IP, use the same IP for API calls
+  const hostname = window.location.hostname;
+  if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+    return `http://${hostname}:3000/api`;
+  }
+  
+  // Default to localhost
+  return 'http://localhost:3000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export interface QuoteRequest {
   name: string;
@@ -19,6 +35,9 @@ export interface InsuranceQuote {
     exclusions: string[];
     ncb: string;
     premiumBreakup: Array<{ label: string; value: string }>;
+    paCover?: string;
+    tenure?: string;
+    paymentMethod?: string;
   };
 }
 
@@ -32,6 +51,9 @@ export interface QuoteResponse {
 
 export const fetchInsuranceQuotes = async (formData: QuoteRequest): Promise<QuoteResponse> => {
   try {
+    // Log the API URL being used for debugging
+    console.log('API Base URL:', API_BASE_URL);
+    
     // Map frontend form data to API payload structure
     const apiPayload = {
       carReg: formData.registrationNumber,
@@ -40,6 +62,9 @@ export const fetchInsuranceQuotes = async (formData: QuoteRequest): Promise<Quot
       isPolicyExpired: false, // Set reasonable default
       hasMadeClaim: false // Set reasonable default
     };
+
+    console.log('Sending request to:', `${API_BASE_URL}/quotes`);
+    console.log('Request payload:', apiPayload);
 
     const response = await fetch(`${API_BASE_URL}/quotes`, {
       method: 'POST',

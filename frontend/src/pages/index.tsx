@@ -1,20 +1,10 @@
-<<<<<<< HEAD
-
-import { useState, useEffect, useRef } from "react";
-=======
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
->>>>>>> master
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import FormField from "@/components/FormField";
-<<<<<<< HEAD
-import { motion } from "framer-motion";
-
-const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
-=======
 import QuoteResults from "@/components/QuoteResults";
 import LoadingQuotes from "@/components/LoadingQuotes";
 import { fetchInsuranceQuotes, InsuranceQuote, QuoteResponse } from "@/services/api";
@@ -23,14 +13,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase-config";
 import { useToast } from "@/hooks/use-toast";
-import { Lock } from "lucide-react";
+import { Lock, Star } from "lucide-react";
 
 const Index = () => {
   const { user, openLoginModal, openSignupModal } = useAuth();
   const { toast } = useToast();
   
   const [isScrolled, setIsScrolled] = useState(false);
->>>>>>> master
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [previousHoveredItem, setPreviousHoveredItem] = useState<string | null>(null);
   const [isCarBrandDialogOpen, setIsCarBrandDialogOpen] = useState(false);
@@ -50,20 +39,11 @@ const Index = () => {
   const [isFuelTypeDialogOpen, setIsFuelTypeDialogOpen] = useState(false);
   const [isVariantDialogOpen, setIsVariantDialogOpen] = useState(false);
   const [isRegistrationDialogOpen, setIsRegistrationDialogOpen] = useState(false);
-<<<<<<< HEAD
-
-=======
->>>>>>> master
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     registrationNumber: ""
   });
-<<<<<<< HEAD
-  const navigationItems = ["Car Insurance", "Business", "For Employees", "How It Works", "About Us"];
-
-  // Mock data for car details (will be replaced with API calls)
-=======
 
   // Quote-related state
   const [isLoadingQuotes, setIsLoadingQuotes] = useState(false);
@@ -81,7 +61,6 @@ const Index = () => {
   ];
 
   // Car data for vehicle selection
->>>>>>> master
   const carModels: Record<string, string[]> = {
     "Ford": ["EcoSport", "Endeavour", "Figo", "Aspire", "Freestyle"],
     "Honda": ["City", "Amaze", "WR-V", "Jazz", "CR-V"],
@@ -171,11 +150,7 @@ const Index = () => {
     },
     {
       name: "Aston Martin",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU08L3RleHQ+Cjwvc3ZnPg=="
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU08L3RleHQ+Cjwvc3ZnPg=="
->>>>>>> master
     },
     {
       name: "Audi",
@@ -183,11 +158,7 @@ const Index = () => {
     },
     {
       name: "Bentley",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "BMW",
@@ -195,19 +166,11 @@ const Index = () => {
     },
     {
       name: "Bugatti",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "BYD",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwOGZmZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QllEPC90ZXh0Pgo8L3N2Zz4="
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "BYD",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwOGZmZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QllEPC90ZXh0Pgo8L3N2Zz4="
->>>>>>> master
     },
     {
       name: "Chevrolet",
@@ -215,19 +178,11 @@ const Index = () => {
     },
     {
       name: "Citroen",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Datsun",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RDwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Datsun",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RDwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Ferrari",
@@ -235,19 +190,11 @@ const Index = () => {
     },
     {
       name: "Fiat",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Force",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Force",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Ford",
@@ -259,19 +206,11 @@ const Index = () => {
     },
     {
       name: "Hop",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwYWE0NCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Hummer",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwYWE0NCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Hummer",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Hyundai",
@@ -279,11 +218,7 @@ const Index = () => {
     },
     {
       name: "Isuzu",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+STwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+STwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Jaguar",
@@ -291,11 +226,7 @@ const Index = () => {
     },
     {
       name: "Jeep",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SjwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SjwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Kia",
@@ -303,17 +234,6 @@ const Index = () => {
     },
     {
       name: "Lamborghini",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZDcwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Land Rover",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TFI8L3RleHQ+Cjwvc3ZnPg=="
-    },
-    {
-      name: "Lexus",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZDcwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
     },
     {
@@ -323,7 +243,6 @@ const Index = () => {
     {
       name: "Lexus",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Mahindra",
@@ -343,19 +262,11 @@ const Index = () => {
     },
     {
       name: "Maserati",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "McLaren",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "McLaren",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Mercedes-Benz",
@@ -363,17 +274,6 @@ const Index = () => {
     },
     {
       name: "MG",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUc8L3RleHQ+Cjwvc3ZnPg=="
-    },
-    {
-      name: "Mini Cooper",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUlOSTwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Mitsubishi",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUc8L3RleHQ+Cjwvc3ZnPg=="
     },
     {
@@ -383,7 +283,6 @@ const Index = () => {
     {
       name: "Mitsubishi",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Nissan",
@@ -391,17 +290,6 @@ const Index = () => {
     },
     {
       name: "Opel",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TzwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Porsche",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
-    },
-    {
-      name: "Premier",
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzMzNzNkYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TzwvdGV4dD4KPC9zdmc+"
     },
     {
@@ -411,7 +299,6 @@ const Index = () => {
     {
       name: "Premier",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzMzNzNkYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
->>>>>>> master
     },
     {
       name: "Renault",
@@ -419,11 +306,7 @@ const Index = () => {
     },
     {
       name: "Rolls Royce",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UlI8L3RleHQ+Cjwvc3ZnPg=="
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UlI8L3RleHQ+Cjwvc3ZnPg=="
->>>>>>> master
     },
     {
       name: "Skoda",
@@ -431,11 +314,7 @@ const Index = () => {
     },
     {
       name: "Ssangyong",
-<<<<<<< HEAD
-      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2QzMDAxYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U1M8L3RleHQ+Cjwvc3ZnPg=="
-=======
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2QzMDAxYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U1M8L3RleHQ+Cjwvc3ZnPg=="
->>>>>>> master
     },
     {
       name: "Tata",
@@ -458,32 +337,19 @@ const Index = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-<<<<<<< HEAD
-  }, []);
-  // Measure the actual width and position of each navigation item
-=======
   }, []);  // Measure the actual width and position of each navigation item
->>>>>>> master
   useEffect(() => {
     const measureItemDimensions = () => {
       const dimensions: Record<string, { width: number; x: number }> = {};
       let cumulativeX = 0;
       
       navigationItems.forEach(item => {
-<<<<<<< HEAD
-        const element = navRefs.current[item];
-=======
         const element = navRefs.current[item.label];
->>>>>>> master
         if (element) {
           const rect = element.getBoundingClientRect();
           const parentRect = element.parentElement?.getBoundingClientRect();
           
-<<<<<<< HEAD
-          dimensions[item] = {
-=======
           dimensions[item.label] = {
->>>>>>> master
             width: rect.width,
             x: cumulativeX
           };
@@ -512,15 +378,6 @@ const Index = () => {
       [e.target.name]: e.target.value
     }));
   };
-<<<<<<< HEAD
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };  const handleNewCarClick = () => {
-    setIsCarBrandDialogOpen(true);
-  };
-=======
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -599,7 +456,6 @@ const Index = () => {
       });
     }
   };
->>>>>>> master
 
   // Handlers for multi-step car selection
   const handleBrandSelect = (brandName: string) => {
@@ -648,95 +504,60 @@ const Index = () => {
       variant: selectedVariant,
       registrationPlace: place
     });
-  };
-  const testimonials = [
+  };  const testimonials = [
     {
       name: "Sarah Mitchell",
       company: "Marketing Director",
-<<<<<<< HEAD
-      text: "SundayInsurance’s AI made comparing car insurance quotes effortless. In just minutes, I had personalized results from multiple insurers—saved over $400 without any stress!",
-=======
       text: "SundayInsurance made comparing car insurance quotes effortless. In just minutes, I had personalized results from multiple insurers—saved over $400 without any stress!",
->>>>>>> master
       rating: 5,
       avatar: "SM"
     },
     {
       name: "David Chen",
       company: "Small Business Owner",
-<<<<<<< HEAD
-      text: "I used to spend hours calling around. SundayInsurance’s smart platform gave me optimized quotes for my business vehicle in under 10 minutes. Total game changer!",
-=======
       text: "I used to spend hours calling around. SundayInsurance's smart platform gave me optimized quotes for my business vehicle in under 10 minutes. Total game changer!",
->>>>>>> master
       rating: 5,
       avatar: "DC"
     },
     {
       name: "Emily Rodriguez",
       company: "Freelance Designer",
-<<<<<<< HEAD
-      text: "Their AI matched me with budget-friendly car insurance options instantly. For someone juggling gigs, this platform saves time *and* money.",
-=======
       text: "Their platform matched me with budget-friendly car insurance options instantly. For someone juggling gigs, this service saves time *and* money.",
->>>>>>> master
       rating: 4,
       avatar: "ER"
     },
     {
       name: "Michael Thompson",
       company: "Family Man",
-<<<<<<< HEAD
-      text: "I was overwhelmed with choices—until SundayInsurance’s AI walked me through it. It narrowed down the best family coverage fast. Zero hassle.",
-=======
       text: "I was overwhelmed with choices—until SundayInsurance walked me through it. It narrowed down the best family coverage fast. Zero hassle.",
->>>>>>> master
       rating: 5,
       avatar: "MT"
     },
     {
       name: "Lisa Park",
       company: "Healthcare Professional",
-<<<<<<< HEAD
-      text: "The AI-powered comparison tool is amazing. It analyzed dozens of policies and helped me pick the best one in minutes. Saved $300 annually!",
-=======
       text: "The comparison tool is amazing. It analyzed dozens of policies and helped me pick the best one in minutes. Saved $300 annually!",
->>>>>>> master
       rating: 4,
       avatar: "LP"
     },
     {
       name: "James Wilson",
       company: "Retired Teacher",
-<<<<<<< HEAD
-      text: "I thought finding affordable coverage at my age would be tough. But SundayInsurance’s AI gave me tailored results quickly—and saved me hundreds.",
-=======
       text: "I thought finding affordable coverage at my age would be tough. But SundayInsurance gave me tailored results quickly—and saved me hundreds.",
->>>>>>> master
       rating: 5,
       avatar: "JW"
     }
   ];
 
-
   const services = [
     {
-<<<<<<< HEAD
-      title: "AI-Powered Car Insurance Quotes",
-      description: "Get personalized, real-time quotes from top insurers in minutes—thanks to our smart AI engine.",
-=======
       title: "Smart Car Insurance Quotes",
       description: "Get personalized, real-time quotes from top insurers in minutes—thanks to our advanced comparison engine.",
->>>>>>> master
       color: "bg-emerald-500"
     },
     {
       title: "Simplified Decision-Making",
-<<<<<<< HEAD
-      description: "Our AI reduces the time to choose the right coverage from hours to minutes, cutting through complexity for you.",
-=======
       description: "Our platform reduces the time to choose the right coverage from hours to minutes, cutting through complexity for you.",
->>>>>>> master
       color: "bg-blue-100"
     },
     {
@@ -822,46 +643,6 @@ const Index = () => {
                       left: 0
                     }}
                   />
-<<<<<<< HEAD
-                )}
-                {navigationItems.map((item, index) => (
-                  <a
-                    key={item}
-                    ref={(el) => { navRefs.current[item] = el; }}
-                    href="#"
-                    className={`relative z-10 px-4 py-2 rounded-full transition-colors duration-200 whitespace-nowrap ${isScrolled
-                      ? hoveredItem === item
-                        ? 'text-emerald-500'
-                        : 'text-slate-600'
-                      : hoveredItem === item
-                        ? 'text-white'
-                        : 'text-white/90'
-                      }`}
-                    onMouseEnter={() => {
-                      setPreviousHoveredItem(hoveredItem);
-                      setHoveredItem(item);
-                    }}
-                    onMouseLeave={() => {
-                      setPreviousHoveredItem(hoveredItem);
-                      setHoveredItem(null);
-                    }}
-                  >
-                    {item}
-                  </a>
-                ))}
-              </nav>
-
-              <Button className={`px-6 py-2 rounded-full transition-all duration-300 ${isScrolled
-                ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
-                : 'bg-white/20 hover:bg-white/30 text-white border border-white/30'
-                }`}>
-                Log in
-              </Button>            </div>
-          </div>
-        </div>
-      </header>{/* Hero Section */}
-      <section className="relative blue-green-gradient hero-grid-pattern overflow-hidden pt-16">        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-=======
                 )}                {navigationItems.map((item, index) => {
                   const isExternalLink = item.href.startsWith('/');
                   
@@ -963,7 +744,6 @@ const Index = () => {
         </div>
       </header>      {/* Hero Section */}
       <section className="relative blue-green-gradient hero-grid-pattern overflow-hidden pt-16"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
->>>>>>> master
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-white">
               <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
@@ -1074,11 +854,6 @@ const Index = () => {
                 <span className="text-lg font-semibold text-slate-400">{company.name}</span>
               </div>
             ))}
-<<<<<<< HEAD
-          </div>
-        </div>
-      </section>
-=======
           </div>        </div>
       </section>      {/* Quote Results Section */}
       {(isLoadingQuotes || showQuotes || quoteError) && (
@@ -1158,7 +933,6 @@ const Index = () => {
           </div>
         </section>
       )}
->>>>>>> master
 
       {/* Services Section */}
       <section className="bg-gray-50 py-20">
@@ -1263,13 +1037,12 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <p className="text-slate-600 mb-4">{testimonial.text}</p>
-
-                    <div className="flex">
+                    <p className="text-slate-600 mb-4">{testimonial.text}</p>                    <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className={`text-lg ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}>
-                          ⭐
-                        </span>
+                        <Star 
+                          key={i} 
+                          className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                        />
                       ))}
                     </div>
                   </CardContent>
@@ -1307,7 +1080,7 @@ const Index = () => {
                 SundayInsurance offers comprehensive insurance solutions to
                 individuals, families and businesses
               </p>              <p className="text-slate-400 text-sm">
-                © SundayInsurance 2025 All rights reserved
+                ┬⌐ SundayInsurance 2025 All rights reserved
               </p>
             </div>
 
@@ -1456,11 +1229,11 @@ const Index = () => {
                 onClick={() => handleFuelTypeSelect(fuelType)}
               >
                 <div className="text-2xl mb-2">
-                  {fuelType === 'Petrol' && '⛽'}
-                  {fuelType === 'Diesel' && '🚛'}
-                  {fuelType === 'CNG' && '🌿'}
-                  {fuelType === 'Electric' && '🔋'}
-                  {fuelType === 'Hybrid' && '🔄'}
+                  {fuelType === 'Petrol' && 'Γ¢╜'}
+                  {fuelType === 'Diesel' && '≡ƒÜ¢'}
+                  {fuelType === 'CNG' && '≡ƒî┐'}
+                  {fuelType === 'Electric' && '≡ƒöï'}
+                  {fuelType === 'Hybrid' && '≡ƒöä'}
                 </div>
                 <span className="text-sm font-medium text-slate-700">
                   {fuelType}

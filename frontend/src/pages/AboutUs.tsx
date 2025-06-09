@@ -38,7 +38,7 @@ const AboutUs = () => {
       name: "Michael Chen",
       role: "Chief Technology Officer",
       image: "/api/placeholder/150/150",
-      description: "Tech innovator focused on making insurance comparison simple and accessible."
+      description: "Tech innovator focused on making insurance platform simple and accessible."
     },
     {
       name: "Emily Rodriguez",

@@ -74,12 +74,12 @@ async function searchAndSelectOption(page: puppeteer.Page, searchTerm: string, s
 function sanitizeText(text: string | null | undefined): string {
   if (!text) return '';
   return text
-    .replace(/â€¢/g, '')  // Remove bullet points
-    .replace(/â€™/g, '')  // Remove apostrophes
-    .replace(/â€"/g, '')  // Remove en-dash
-    .replace(/â€"/g, '')  // Remove em-dash
-    .replace(/â€œ/g, '')  // Remove opening quotes
-    .replace(/â€/g, '');  // Remove closing quotes
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢/g, '')  // Remove bullet points
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢/g, '')  // Remove apostrophes
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬"/g, '')  // Remove en-dash
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬"/g, '')  // Remove em-dash
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ/g, '')  // Remove opening quotes
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬/g, '');  // Remove closing quotes
 }
 
 export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<ScraperResult> {
@@ -773,19 +773,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
       await page.screenshot({ path: 'after-registration-place.png' });
 
       // Wait a bit for any transitions to complete
-<<<<<<< HEAD
-      await new Promise(resolve => setTimeout(resolve, 3000));
-
-      // Look for registration year dropdown
-      const hasYearDropdown = await page.evaluate(() => {
-        // Check for dropdown with year values (20XX)
-        const yearDropdown = document.querySelector('.w--multi_select_handle');
-        const yearPlaceholder = document.querySelector('.dd_placeholder');
-        
-        return yearDropdown !== null && 
-               yearPlaceholder !== null && 
-               yearPlaceholder.textContent?.includes('20');
-=======
       await new Promise(resolve => setTimeout(resolve, 3000));      // Look for registration year dropdown using specific selector
       const hasYearDropdown = await page.evaluate(() => {
         // Check specifically for the registration year dropdown
@@ -799,28 +786,11 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
         
         // Just check if the year-specific dropdown exists
         return yearDropdown !== null && yearHandle !== null;
->>>>>>> master
       });
 
       if (hasYearDropdown) {
         logger.info('Registration year dropdown found');
         
-<<<<<<< HEAD
-        // Click to open the dropdown
-        await page.click('.w--multi_select_handle');
-        logger.info('Clicked to open year dropdown');
-        
-        // Wait for the dropdown to appear
-        await page.waitForSelector('.w--multi_select_dd_element', { timeout: 5000 });
-        await page.screenshot({ path: 'year-dropdown-open.png' });
-        
-        // Scrape available years
-        const years = await page.evaluate(() => {
-          const elements = document.querySelectorAll('.w--multi_select_dd_element');
-          return Array.from(elements)
-            .map(el => el.textContent?.trim() || '')
-            .filter(text => text.length > 0);
-=======
         // Click to open the year dropdown specifically
         await page.click('.w--multi_select--registration-year .w--multi_select_handle');
         logger.info('Clicked to open year dropdown');
@@ -842,7 +812,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
               const yearPattern = /^20\d{2}$/;
               return yearPattern.test(text);
             });
->>>>>>> master
         });
         
         logger.info(`Found ${years.length} registration year options: ${years.join(', ')}`);
@@ -850,29 +819,14 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
         // Present years to user and get selection
         const selectedYear = await promptUser('Select registration year', years);
         logger.info(`User selected registration year: ${selectedYear}`);
-<<<<<<< HEAD
-        
-        // Try search box first if available
-        const hasSearchBox = await page.evaluate(() => {
-          return document.querySelector('#SearchBox.search-box') !== null;
-=======
           // Try search box first if available within the year dropdown
         const hasSearchBox = await page.evaluate(() => {
           const yearDropdown = document.querySelector('.w--multi_select--registration-year');
           return yearDropdown?.querySelector('#SearchBox.search-box') !== null || false;
->>>>>>> master
         });
         
         if (hasSearchBox) {
           logger.info('Using search box to find year');
-<<<<<<< HEAD
-          await page.type('#SearchBox.search-box', selectedYear);
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          // Click the filtered year option
-          const yearClicked = await page.evaluate((year) => {
-            const elements = document.querySelectorAll('.w--multi_select_dd_element');
-=======
           await page.type('.w--multi_select--registration-year #SearchBox.search-box', selectedYear);
           await new Promise(resolve => setTimeout(resolve, 1000));
           
@@ -882,7 +836,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
             if (!yearDropdown) return false;
             
             const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
->>>>>>> master
             for (const el of elements) {
               if (el.textContent?.trim() === year) {
                 (el as HTMLElement).click();
@@ -897,18 +850,12 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           } else {
             logger.warn(`Could not find year ${selectedYear} after search, trying direct selection`);
             
-<<<<<<< HEAD
-            // Try direct selection
-            await page.evaluate((year) => {
-              const elements = document.querySelectorAll('.w--multi_select_dd_element');
-=======
             // Try direct selection within the year dropdown
             await page.evaluate((year) => {
               const yearDropdown = document.querySelector('.w--multi_select--registration-year');
               if (!yearDropdown) return;
               
               const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
->>>>>>> master
               for (const el of elements) {
                 if (el.textContent?.trim() === year) {
                   (el as HTMLElement).click();
@@ -919,18 +866,12 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
             logger.info(`Attempted direct selection of year ${selectedYear}`);
           }
         } else {
-<<<<<<< HEAD
-          // Direct selection without search
-          await page.evaluate((year) => {
-            const elements = document.querySelectorAll('.w--multi_select_dd_element');
-=======
           // Direct selection without search within the year dropdown
           await page.evaluate((year) => {
             const yearDropdown = document.querySelector('.w--multi_select--registration-year');
             if (!yearDropdown) return;
             
             const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
->>>>>>> master
             for (const el of elements) {
               if (el.textContent?.trim() === year) {
                 (el as HTMLElement).click();
@@ -961,18 +902,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           await page.screenshot({ path: 'after-save-continue.png' });
         } else {
           logger.info('No registration year dropdown or Save & Continue button found, continuing with workflow');
-<<<<<<< HEAD
-        }
-      }
-
-      // After selecting "Not Expired" option
-      await page.click('.w--radio--fl-expiry .w--radio__options .w--radio__option:first-child');
-      logger.info('Selected "Not Expired" option');
-
-      // Take a screenshot after selection
-      await page.screenshot({ path: 'after-expiry-selection.png' });
-
-=======
         }      }      // Try to handle policy expiry section if it exists
       try {
         logger.info('Checking for policy expiry section...');
@@ -1003,7 +932,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
         await page.screenshot({ path: 'expiry-section-error.png' });
       }
 
->>>>>>> master
       // Wait for the claim question to appear
       try {
         await page.waitForSelector('.claim-mopro .w--radio--claim', { timeout: 10000 });
@@ -1091,19 +1019,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           
           // Take a screenshot to see current state
           await page.screenshot({ path: 'before-policy-expiry.png' });
-<<<<<<< HEAD
-          
-          // Wait for the policy expiry section to appear
-          await page.waitForSelector('.w--radio--fl-expiry', { timeout: 15000 });
-          logger.info('Policy expiry section found for new car flow');
-          
-          // Select the "Not Expired" option
-          await page.click('.w--radio--fl-expiry .w--radio__options .w--radio__option:first-child');
-          logger.info('Selected "Not Expired" option');
-          
-          // Take a screenshot after selection
-          await page.screenshot({ path: 'after-expiry-selection.png' });
-=======
             // Wait for the policy expiry section to appear
           await page.waitForSelector('.w--radio--fl-expiry', { timeout: 15000 });
           logger.info('Policy expiry section found for new car flow');
@@ -1132,7 +1047,6 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
             logger.info('Continuing without policy expiry selection');
             await page.screenshot({ path: 'policy-expiry-selection-error.png' });
           }
->>>>>>> master
           
           // Wait for the phone number field to appear
           await page.waitForSelector('input[type="tel"]', { timeout: 10000 });
@@ -1948,9 +1862,9 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           }
           
           if (!closeClicked) {
-            // Try to find close button by looking for × or text
+            // Try to find close button by looking for Ãƒâ€” or text
             closeClicked = await page.evaluate(() => {
-              const closeTexts = ['×', 'Close', 'CLOSE', 'Cancel', 'Done'];
+              const closeTexts = ['Ãƒâ€”', 'Close', 'CLOSE', 'Cancel', 'Done'];
               const elements = document.querySelectorAll('button, a, div, span');
               
               for (const el of elements) {

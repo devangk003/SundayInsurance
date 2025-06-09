@@ -1,8 +1,5 @@
 import express from 'express';
-<<<<<<< HEAD
-=======
 import cors from 'cors';
->>>>>>> master
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import routes from './api/routes';
@@ -11,22 +8,30 @@ import logger from './utils/logger';
 
 const app = express();
 
-<<<<<<< HEAD
-=======
 // CORS configuration
 app.use(cors({
-  origin: [
-    'http://localhost:8080',
-    'http://localhost:3000',
-    'http://127.0.0.1:8080',
-    'http://127.0.0.1:3000'
-  ],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost and 127.0.0.1 on any port
+    if (origin.match(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/)) {
+      return callback(null, true);
+    }
+    
+    // Allow local network IPs (192.168.x.x) on port 8080
+    if (origin.match(/^https?:\/\/192\.168\.\d+\.\d+:8080$/)) {
+      return callback(null, true);
+    }
+    
+    // Reject other origins
+    callback(new Error('Not allowed by CORS'));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
->>>>>>> master
 // Middleware
 app.use(express.json());
 app.use(helmet());

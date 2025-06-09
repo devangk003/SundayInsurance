@@ -1,11 +1,11 @@
-# SundayInsurance - Smart Vehicle Insurance Comparison Platform
+# SundayInsurance: Smart Vehicle Insurance Platform
 
-A comprehensive insurance comparison platform that helps users find the best vehicle insurance quotes from top insurers in India. The platform consists of a modern React frontend and a Node.js backend with web scraping capabilities.
+A comprehensive insurance platform that helps users find the best vehicle insurance quotes from top insurers in India. The platform consists of a modern React frontend and a Node.js backend with web scraping capabilities.
 
 ## 🚀 Features
 
 ### Frontend Features
-- **Smart Quote Comparison**: Compare insurance quotes from multiple providers
+- **Smart Quote Platform**: Compare insurance quotes from multiple providers
 - **User Authentication**: Firebase-based authentication system
 - **Responsive Design**: Modern, mobile-first UI built with React and Tailwind CSS
 - **Interactive Car Selection**: Multi-step car brand, model, and variant selection
@@ -229,10 +229,10 @@ CORS_ORIGIN=http://localhost:5173
 
 ## 📱 Features in Detail
 
-### Quote Comparison
+### Quote Platform
 - Multi-step car selection process
 - Real-time quote fetching from multiple insurers
-- Comprehensive quote comparison with features
+- Comprehensive quote analysis with features
 - User authentication for detailed quotes
 
 ### About Us Page

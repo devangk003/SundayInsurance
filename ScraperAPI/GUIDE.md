@@ -1,4 +1,4 @@
-# SundayInsurance: Running the Project
+# SundayInsurance: Smart Vehicle Insurance Platform - Running Guide
 
 This guide explains how to run the SundayInsurance project for both new and existing cars.
 

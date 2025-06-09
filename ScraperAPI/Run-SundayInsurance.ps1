@@ -1,5 +1,5 @@
 # Run-SundayInsurance.ps1
-# Helper script to run the SundayInsurance project
+# Helper script to run the SundayInsurance Smart Vehicle Insurance Platform
 
 # Show the logo
 Write-Host "
@@ -13,7 +13,7 @@ Write-Host "
                                  |___/                                                 
 " -ForegroundColor Cyan
 
-Write-Host "Welcome to SundayInsurance - Smart Insurance Comparison Platform" -ForegroundColor Yellow
+Write-Host "Welcome to SundayInsurance - Smart Vehicle Insurance Platform" -ForegroundColor Yellow
 Write-Host "This script will help you run the insurance scraper for both new and existing cars`n" -ForegroundColor Green
 
 # Function to start the server
