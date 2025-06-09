@@ -773,6 +773,7 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
       await page.screenshot({ path: 'after-registration-place.png' });
 
       // Wait a bit for any transitions to complete
+<<<<<<< HEAD
       await new Promise(resolve => setTimeout(resolve, 3000));
 
       // Look for registration year dropdown
@@ -784,11 +785,27 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
         return yearDropdown !== null && 
                yearPlaceholder !== null && 
                yearPlaceholder.textContent?.includes('20');
+=======
+      await new Promise(resolve => setTimeout(resolve, 3000));      // Look for registration year dropdown using specific selector
+      const hasYearDropdown = await page.evaluate(() => {
+        // Check specifically for the registration year dropdown
+        const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+        const yearHandle = yearDropdown?.querySelector('.w--multi_select_handle');
+        
+        // Debug logging
+        console.log('Year dropdown element found:', yearDropdown !== null);
+        console.log('Year handle found:', yearHandle !== null);
+        console.log('Year dropdown classes:', yearDropdown?.className);
+        
+        // Just check if the year-specific dropdown exists
+        return yearDropdown !== null && yearHandle !== null;
+>>>>>>> master
       });
 
       if (hasYearDropdown) {
         logger.info('Registration year dropdown found');
         
+<<<<<<< HEAD
         // Click to open the dropdown
         await page.click('.w--multi_select_handle');
         logger.info('Clicked to open year dropdown');
@@ -803,6 +820,29 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           return Array.from(elements)
             .map(el => el.textContent?.trim() || '')
             .filter(text => text.length > 0);
+=======
+        // Click to open the year dropdown specifically
+        await page.click('.w--multi_select--registration-year .w--multi_select_handle');
+        logger.info('Clicked to open year dropdown');
+        
+        // Wait for the year dropdown to appear
+        await page.waitForSelector('.w--multi_select--registration-year .w--multi_select_dd_element', { timeout: 5000 });
+        await page.screenshot({ path: 'year-dropdown-open.png' });
+        
+        // Scrape available years from the year dropdown only
+        const years = await page.evaluate(() => {
+          const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+          if (!yearDropdown) return [];
+          
+          const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
+          return Array.from(elements)
+            .map(el => el.textContent?.trim() || '')
+            .filter(text => {
+              // Only include 4-digit years starting with 20 (2000-2099)
+              const yearPattern = /^20\d{2}$/;
+              return yearPattern.test(text);
+            });
+>>>>>>> master
         });
         
         logger.info(`Found ${years.length} registration year options: ${years.join(', ')}`);
@@ -810,20 +850,39 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
         // Present years to user and get selection
         const selectedYear = await promptUser('Select registration year', years);
         logger.info(`User selected registration year: ${selectedYear}`);
+<<<<<<< HEAD
         
         // Try search box first if available
         const hasSearchBox = await page.evaluate(() => {
           return document.querySelector('#SearchBox.search-box') !== null;
+=======
+          // Try search box first if available within the year dropdown
+        const hasSearchBox = await page.evaluate(() => {
+          const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+          return yearDropdown?.querySelector('#SearchBox.search-box') !== null || false;
+>>>>>>> master
         });
         
         if (hasSearchBox) {
           logger.info('Using search box to find year');
+<<<<<<< HEAD
           await page.type('#SearchBox.search-box', selectedYear);
           await new Promise(resolve => setTimeout(resolve, 1000));
           
           // Click the filtered year option
           const yearClicked = await page.evaluate((year) => {
             const elements = document.querySelectorAll('.w--multi_select_dd_element');
+=======
+          await page.type('.w--multi_select--registration-year #SearchBox.search-box', selectedYear);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Click the filtered year option within the year dropdown
+          const yearClicked = await page.evaluate((year) => {
+            const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+            if (!yearDropdown) return false;
+            
+            const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
+>>>>>>> master
             for (const el of elements) {
               if (el.textContent?.trim() === year) {
                 (el as HTMLElement).click();
@@ -838,9 +897,18 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           } else {
             logger.warn(`Could not find year ${selectedYear} after search, trying direct selection`);
             
+<<<<<<< HEAD
             // Try direct selection
             await page.evaluate((year) => {
               const elements = document.querySelectorAll('.w--multi_select_dd_element');
+=======
+            // Try direct selection within the year dropdown
+            await page.evaluate((year) => {
+              const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+              if (!yearDropdown) return;
+              
+              const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
+>>>>>>> master
               for (const el of elements) {
                 if (el.textContent?.trim() === year) {
                   (el as HTMLElement).click();
@@ -851,9 +919,18 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
             logger.info(`Attempted direct selection of year ${selectedYear}`);
           }
         } else {
+<<<<<<< HEAD
           // Direct selection without search
           await page.evaluate((year) => {
             const elements = document.querySelectorAll('.w--multi_select_dd_element');
+=======
+          // Direct selection without search within the year dropdown
+          await page.evaluate((year) => {
+            const yearDropdown = document.querySelector('.w--multi_select--registration-year');
+            if (!yearDropdown) return;
+            
+            const elements = yearDropdown.querySelectorAll('.w--multi_select_dd_element');
+>>>>>>> master
             for (const el of elements) {
               if (el.textContent?.trim() === year) {
                 (el as HTMLElement).click();
@@ -884,6 +961,7 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           await page.screenshot({ path: 'after-save-continue.png' });
         } else {
           logger.info('No registration year dropdown or Save & Continue button found, continuing with workflow');
+<<<<<<< HEAD
         }
       }
 
@@ -894,6 +972,38 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
       // Take a screenshot after selection
       await page.screenshot({ path: 'after-expiry-selection.png' });
 
+=======
+        }      }      // Try to handle policy expiry section if it exists
+      try {
+        logger.info('Checking for policy expiry section...');
+        
+        // Wait briefly for any dynamic content to load
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Use a safer approach - click within page.evaluate to avoid Puppeteer selector errors
+        const expiryClicked = await page.evaluate(() => {
+          const expiryElement = document.querySelector('.w--radio--fl-expiry .w--radio__options .w--radio__option:first-child');
+          if (expiryElement) {
+            (expiryElement as HTMLElement).click();
+            return true;
+          }
+          return false;
+        });
+
+        if (expiryClicked) {
+          logger.info('Policy expiry section found and "Not Expired" option selected');
+          // Take a screenshot after selection
+          await page.screenshot({ path: 'after-expiry-selection.png' });
+        } else {
+          logger.info('Policy expiry section not found, skipping this step');
+        }
+      } catch (error) {
+        logger.warn(`Policy expiry section handling failed: ${(error as Error).message}`);
+        logger.info('Continuing without policy expiry selection as it may be optional');
+        await page.screenshot({ path: 'expiry-section-error.png' });
+      }
+
+>>>>>>> master
       // Wait for the claim question to appear
       try {
         await page.waitForSelector('.claim-mopro .w--radio--claim', { timeout: 10000 });
@@ -981,6 +1091,7 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           
           // Take a screenshot to see current state
           await page.screenshot({ path: 'before-policy-expiry.png' });
+<<<<<<< HEAD
           
           // Wait for the policy expiry section to appear
           await page.waitForSelector('.w--radio--fl-expiry', { timeout: 15000 });
@@ -992,6 +1103,36 @@ export async function scrapeInsuranceQuotes(request: QuoteRequest): Promise<Scra
           
           // Take a screenshot after selection
           await page.screenshot({ path: 'after-expiry-selection.png' });
+=======
+            // Wait for the policy expiry section to appear
+          await page.waitForSelector('.w--radio--fl-expiry', { timeout: 15000 });
+          logger.info('Policy expiry section found for new car flow');
+            // Try to select the "Not Expired" option with better error handling
+          try {
+            // Use page.evaluate for safer element interaction
+            const expiryClicked = await page.evaluate(() => {
+              const expiryElement = document.querySelector('.w--radio--fl-expiry .w--radio__options .w--radio__option:first-child');
+              if (expiryElement) {
+                (expiryElement as HTMLElement).click();
+                return true;
+              }
+              return false;
+            });
+
+            if (expiryClicked) {
+              logger.info('Selected "Not Expired" option in new car flow');
+              
+              // Take a screenshot after selection
+              await page.screenshot({ path: 'after-expiry-selection.png' });
+            } else {
+              logger.warn('Policy expiry options not found in new car flow, continuing anyway');
+            }
+          } catch (error) {
+            logger.warn(`Failed to select policy expiry option: ${(error as Error).message}`);
+            logger.info('Continuing without policy expiry selection');
+            await page.screenshot({ path: 'policy-expiry-selection-error.png' });
+          }
+>>>>>>> master
           
           // Wait for the phone number field to appear
           await page.waitForSelector('input[type="tel"]', { timeout: 10000 });

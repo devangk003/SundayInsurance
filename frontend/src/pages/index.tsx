@@ -1,13 +1,36 @@
+<<<<<<< HEAD
 
 import { useState, useEffect, useRef } from "react";
+=======
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+>>>>>>> master
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import FormField from "@/components/FormField";
+<<<<<<< HEAD
 import { motion } from "framer-motion";
 
 const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
+=======
+import QuoteResults from "@/components/QuoteResults";
+import LoadingQuotes from "@/components/LoadingQuotes";
+import { fetchInsuranceQuotes, InsuranceQuote, QuoteResponse } from "@/services/api";
+import { motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase-config";
+import { useToast } from "@/hooks/use-toast";
+import { Lock } from "lucide-react";
+
+const Index = () => {
+  const { user, openLoginModal, openSignupModal } = useAuth();
+  const { toast } = useToast();
+  
+  const [isScrolled, setIsScrolled] = useState(false);
+>>>>>>> master
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [previousHoveredItem, setPreviousHoveredItem] = useState<string | null>(null);
   const [isCarBrandDialogOpen, setIsCarBrandDialogOpen] = useState(false);
@@ -27,15 +50,38 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
   const [isFuelTypeDialogOpen, setIsFuelTypeDialogOpen] = useState(false);
   const [isVariantDialogOpen, setIsVariantDialogOpen] = useState(false);
   const [isRegistrationDialogOpen, setIsRegistrationDialogOpen] = useState(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     registrationNumber: ""
   });
+<<<<<<< HEAD
   const navigationItems = ["Car Insurance", "Business", "For Employees", "How It Works", "About Us"];
 
   // Mock data for car details (will be replaced with API calls)
+=======
+
+  // Quote-related state
+  const [isLoadingQuotes, setIsLoadingQuotes] = useState(false);
+  const [quotes, setQuotes] = useState<InsuranceQuote[]>([]);
+  const [quoteError, setQuoteError] = useState<string | null>(null);
+  const [showQuotes, setShowQuotes] = useState(false);
+  const [vehicleRegistration, setVehicleRegistration] = useState<string>("");
+
+  const navigationItems = [
+    { label: "Car Insurance", href: "#car-insurance" },
+    { label: "Business", href: "#business" },
+    { label: "For Employees", href: "#employees" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "About Us", href: "/about" }
+  ];
+
+  // Car data for vehicle selection
+>>>>>>> master
   const carModels: Record<string, string[]> = {
     "Ford": ["EcoSport", "Endeavour", "Figo", "Aspire", "Freestyle"],
     "Honda": ["City", "Amaze", "WR-V", "Jazz", "CR-V"],
@@ -125,7 +171,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Aston Martin",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU08L3RleHQ+Cjwvc3ZnPg=="
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU08L3RleHQ+Cjwvc3ZnPg=="
+>>>>>>> master
     },
     {
       name: "Audi",
@@ -133,7 +183,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Bentley",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "BMW",
@@ -141,11 +195,19 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Bugatti",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "BYD",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwOGZmZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QllEPC90ZXh0Pgo8L3N2Zz4="
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QjwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "BYD",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwOGZmZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QllEPC90ZXh0Pgo8L3N2Zz4="
+>>>>>>> master
     },
     {
       name: "Chevrolet",
@@ -153,11 +215,19 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Citroen",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Datsun",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RDwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Datsun",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RDwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Ferrari",
@@ -165,11 +235,19 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Fiat",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Force",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Force",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RjwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Ford",
@@ -181,11 +259,19 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Hop",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwYWE0NCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "Hummer",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwYWE0NCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Hummer",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Hyundai",
@@ -193,7 +279,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Isuzu",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+STwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+STwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Jaguar",
@@ -201,7 +291,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Jeep",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SjwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SjwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Kia",
@@ -209,6 +303,7 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Lamborghini",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZDcwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
     },
     {
@@ -218,6 +313,17 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     {
       name: "Lexus",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZDcwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Land Rover",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwNzUzMSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TFI8L3RleHQ+Cjwvc3ZnPg=="
+    },
+    {
+      name: "Lexus",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzQ0NGQ1ZiIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TDwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Mahindra",
@@ -237,11 +343,19 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Maserati",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
     },
     {
       name: "McLaren",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMzM5OSIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "McLaren",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmMzMwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Mercedes-Benz",
@@ -249,6 +363,7 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "MG",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUc8L3RleHQ+Cjwvc3ZnPg=="
     },
     {
@@ -258,6 +373,17 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     {
       name: "Mitsubishi",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUc8L3RleHQ+Cjwvc3ZnPg=="
+    },
+    {
+      name: "Mini Cooper",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUlOSTwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Mitsubishi",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2Q3MDAyNCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TTwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Nissan",
@@ -265,6 +391,7 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Opel",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TzwvdGV4dD4KPC9zdmc+"
     },
     {
@@ -274,6 +401,17 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     {
       name: "Premier",
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzMzNzNkYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TzwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Porsche",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2ZmZGQwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9ImJsYWNrIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
+    },
+    {
+      name: "Premier",
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzMzNzNkYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UDwvdGV4dD4KPC9zdmc+"
+>>>>>>> master
     },
     {
       name: "Renault",
@@ -281,7 +419,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Rolls Royce",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UlI8L3RleHQ+Cjwvc3ZnPg=="
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzAwMDAwMCIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UlI8L3RleHQ+Cjwvc3ZnPg=="
+>>>>>>> master
     },
     {
       name: "Skoda",
@@ -289,7 +431,11 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     },
     {
       name: "Ssangyong",
+<<<<<<< HEAD
       logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2QzMDAxYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U1M8L3RleHQ+Cjwvc3ZnPg=="
+=======
+      logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iI2QzMDAxYyIvPgo8dGV4dCB4PSIzMiIgeT0iMzgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U1M8L3RleHQ+Cjwvc3ZnPg=="
+>>>>>>> master
     },
     {
       name: "Tata",
@@ -312,20 +458,32 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+<<<<<<< HEAD
   }, []);
   // Measure the actual width and position of each navigation item
+=======
+  }, []);  // Measure the actual width and position of each navigation item
+>>>>>>> master
   useEffect(() => {
     const measureItemDimensions = () => {
       const dimensions: Record<string, { width: number; x: number }> = {};
       let cumulativeX = 0;
       
       navigationItems.forEach(item => {
+<<<<<<< HEAD
         const element = navRefs.current[item];
+=======
+        const element = navRefs.current[item.label];
+>>>>>>> master
         if (element) {
           const rect = element.getBoundingClientRect();
           const parentRect = element.parentElement?.getBoundingClientRect();
           
+<<<<<<< HEAD
           dimensions[item] = {
+=======
+          dimensions[item.label] = {
+>>>>>>> master
             width: rect.width,
             x: cumulativeX
           };
@@ -354,6 +512,7 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
       [e.target.name]: e.target.value
     }));
   };
+<<<<<<< HEAD
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -361,6 +520,86 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
   };  const handleNewCarClick = () => {
     setIsCarBrandDialogOpen(true);
   };
+=======
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.registrationNumber.trim()) {
+      setQuoteError("Please fill in all fields");
+      return;
+    }
+
+    // Phone validation
+    if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+      setQuoteError("Please enter a valid 10-digit phone number");
+      return;
+    }    // Clear previous state
+    setQuoteError(null);
+    setQuotes([]);
+    setIsLoadingQuotes(true);
+    setShowQuotes(false);
+
+    // Scroll to quote results section immediately when API execution starts
+    setTimeout(() => {
+      const quotesSection = document.getElementById('quotes-section');
+      if (quotesSection) {
+        quotesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+
+    try {
+      console.log("Fetching quotes for:", formData);
+      const response: QuoteResponse = await fetchInsuranceQuotes(formData);
+      
+      if (response.success && response.quotes) {
+        setQuotes(response.quotes);
+        setVehicleRegistration(response.vehicleRegistration || formData.registrationNumber);
+        setShowQuotes(true);
+      } else {
+        setQuoteError(response.error || "Failed to fetch quotes. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching quotes:", error);
+      setQuoteError("An unexpected error occurred. Please try again.");    } finally {
+      setIsLoadingQuotes(false);
+    }
+  };
+
+  const handleNewQuote = () => {
+    setFormData({ name: "", phone: "", registrationNumber: "" });
+    setQuotes([]);
+    setQuoteError(null);
+    setShowQuotes(false);
+    setIsLoadingQuotes(false);
+    
+    // Scroll to form
+    const quoteForm = document.getElementById('quote-form');
+    quoteForm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const handleNewCarClick = () => {
+    setIsCarBrandDialogOpen(true);
+  };
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast({
+        title: "Signed Out",
+        description: "You have been logged out successfully!",
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error signing out:", error);
+      toast({
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
+  };
+>>>>>>> master
 
   // Handlers for multi-step car selection
   const handleBrandSelect = (brandName: string) => {
@@ -414,42 +653,66 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
     {
       name: "Sarah Mitchell",
       company: "Marketing Director",
+<<<<<<< HEAD
       text: "SundayInsurance’s AI made comparing car insurance quotes effortless. In just minutes, I had personalized results from multiple insurers—saved over $400 without any stress!",
+=======
+      text: "SundayInsurance made comparing car insurance quotes effortless. In just minutes, I had personalized results from multiple insurers—saved over $400 without any stress!",
+>>>>>>> master
       rating: 5,
       avatar: "SM"
     },
     {
       name: "David Chen",
       company: "Small Business Owner",
+<<<<<<< HEAD
       text: "I used to spend hours calling around. SundayInsurance’s smart platform gave me optimized quotes for my business vehicle in under 10 minutes. Total game changer!",
+=======
+      text: "I used to spend hours calling around. SundayInsurance's smart platform gave me optimized quotes for my business vehicle in under 10 minutes. Total game changer!",
+>>>>>>> master
       rating: 5,
       avatar: "DC"
     },
     {
       name: "Emily Rodriguez",
       company: "Freelance Designer",
+<<<<<<< HEAD
       text: "Their AI matched me with budget-friendly car insurance options instantly. For someone juggling gigs, this platform saves time *and* money.",
+=======
+      text: "Their platform matched me with budget-friendly car insurance options instantly. For someone juggling gigs, this service saves time *and* money.",
+>>>>>>> master
       rating: 4,
       avatar: "ER"
     },
     {
       name: "Michael Thompson",
       company: "Family Man",
+<<<<<<< HEAD
       text: "I was overwhelmed with choices—until SundayInsurance’s AI walked me through it. It narrowed down the best family coverage fast. Zero hassle.",
+=======
+      text: "I was overwhelmed with choices—until SundayInsurance walked me through it. It narrowed down the best family coverage fast. Zero hassle.",
+>>>>>>> master
       rating: 5,
       avatar: "MT"
     },
     {
       name: "Lisa Park",
       company: "Healthcare Professional",
+<<<<<<< HEAD
       text: "The AI-powered comparison tool is amazing. It analyzed dozens of policies and helped me pick the best one in minutes. Saved $300 annually!",
+=======
+      text: "The comparison tool is amazing. It analyzed dozens of policies and helped me pick the best one in minutes. Saved $300 annually!",
+>>>>>>> master
       rating: 4,
       avatar: "LP"
     },
     {
       name: "James Wilson",
       company: "Retired Teacher",
+<<<<<<< HEAD
       text: "I thought finding affordable coverage at my age would be tough. But SundayInsurance’s AI gave me tailored results quickly—and saved me hundreds.",
+=======
+      text: "I thought finding affordable coverage at my age would be tough. But SundayInsurance gave me tailored results quickly—and saved me hundreds.",
+>>>>>>> master
       rating: 5,
       avatar: "JW"
     }
@@ -458,13 +721,22 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
 
   const services = [
     {
+<<<<<<< HEAD
       title: "AI-Powered Car Insurance Quotes",
       description: "Get personalized, real-time quotes from top insurers in minutes—thanks to our smart AI engine.",
+=======
+      title: "Smart Car Insurance Quotes",
+      description: "Get personalized, real-time quotes from top insurers in minutes—thanks to our advanced comparison engine.",
+>>>>>>> master
       color: "bg-emerald-500"
     },
     {
       title: "Simplified Decision-Making",
+<<<<<<< HEAD
       description: "Our AI reduces the time to choose the right coverage from hours to minutes, cutting through complexity for you.",
+=======
+      description: "Our platform reduces the time to choose the right coverage from hours to minutes, cutting through complexity for you.",
+>>>>>>> master
       color: "bg-blue-100"
     },
     {
@@ -550,6 +822,7 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
                       left: 0
                     }}
                   />
+<<<<<<< HEAD
                 )}
                 {navigationItems.map((item, index) => (
                   <a
@@ -588,6 +861,109 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
         </div>
       </header>{/* Hero Section */}
       <section className="relative blue-green-gradient hero-grid-pattern overflow-hidden pt-16">        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+=======
+                )}                {navigationItems.map((item, index) => {
+                  const isExternalLink = item.href.startsWith('/');
+                  
+                  if (isExternalLink) {
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        ref={(el) => { navRefs.current[item.label] = el; }}
+                        className={`relative z-10 px-4 py-2 rounded-full transition-colors duration-200 whitespace-nowrap ${isScrolled
+                          ? hoveredItem === item.label
+                            ? 'text-emerald-500'
+                            : 'text-slate-600'
+                          : hoveredItem === item.label
+                            ? 'text-white'
+                            : 'text-white/90'
+                          }`}
+                        onMouseEnter={() => {
+                          setPreviousHoveredItem(hoveredItem);
+                          setHoveredItem(item.label);
+                        }}
+                        onMouseLeave={() => {
+                          setPreviousHoveredItem(hoveredItem);
+                          setHoveredItem(null);
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  }
+                  
+                  return (
+                    <a
+                      key={item.label}
+                      ref={(el) => { navRefs.current[item.label] = el; }}
+                      href={item.href}
+                      className={`relative z-10 px-4 py-2 rounded-full transition-colors duration-200 whitespace-nowrap ${isScrolled
+                        ? hoveredItem === item.label
+                          ? 'text-emerald-500'
+                          : 'text-slate-600'
+                        : hoveredItem === item.label
+                          ? 'text-white'
+                          : 'text-white/90'
+                        }`}
+                      onMouseEnter={() => {
+                        setPreviousHoveredItem(hoveredItem);
+                        setHoveredItem(item.label);
+                      }}
+                      onMouseLeave={() => {
+                        setPreviousHoveredItem(hoveredItem);
+                        setHoveredItem(null);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </nav>              {user ? (
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2 bg-white/10 rounded-full px-3 py-1">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-bold text-white">
+                        {(user.email?.charAt(0) || user.phoneNumber?.charAt(-1) || 'U').toUpperCase()}
+                      </span>
+                    </div>
+                    <span className="text-white text-sm font-medium">
+                      {user.email ? user.email.split('@')[0] : user.phoneNumber}
+                    </span>
+                  </div>
+                  <Button 
+                    onClick={handleLogout}
+                    variant="ghost"
+                    className="text-white hover:bg-white/20 px-4 py-2 rounded-full transition-all duration-300"
+                  >
+                    Logout
+                  </Button>
+                </div>              ) : (
+                <div className="flex items-center space-x-3">
+                  <Button 
+                    onClick={openLoginModal}
+                    variant="ghost"
+                    className={`px-4 py-2 rounded-full transition-all duration-300 ${isScrolled
+                      ? 'text-slate-700 hover:bg-slate-100'
+                      : 'text-white hover:bg-white/20 border border-white/30'
+                    }`}>
+                    Log in
+                  </Button>
+                  <Button 
+                    onClick={openSignupModal}
+                    className={`px-6 py-2 rounded-full transition-all duration-300 ${isScrolled
+                      ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                      : 'bg-white hover:bg-white/90 text-slate-800'
+                    }`}>
+                    Sign Up
+                  </Button>
+                </div>
+              )}</div>
+          </div>
+        </div>
+      </header>      {/* Hero Section */}
+      <section className="relative blue-green-gradient hero-grid-pattern overflow-hidden pt-16"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+>>>>>>> master
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-white">
               <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
@@ -698,9 +1074,91 @@ const Index = () => {  const [isScrolled, setIsScrolled] = useState(false);
                 <span className="text-lg font-semibold text-slate-400">{company.name}</span>
               </div>
             ))}
+<<<<<<< HEAD
           </div>
         </div>
       </section>
+=======
+          </div>        </div>
+      </section>      {/* Quote Results Section */}
+      {(isLoadingQuotes || showQuotes || quoteError) && (
+        <section id="quotes-section" className="bg-gray-50 py-16 relative">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            {isLoadingQuotes && (
+              <LoadingQuotes />
+            )}
+            
+            {quoteError && !isLoadingQuotes && (
+              <div className="text-center">
+                <Card className="max-w-md mx-auto">
+                  <CardContent className="p-8">
+                    <div className="text-red-500 text-lg font-semibold mb-4">
+                      Oops! Something went wrong
+                    </div>
+                    <p className="text-gray-600 mb-6">{quoteError}</p>
+                    <Button 
+                      onClick={handleNewQuote}
+                      className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full"
+                    >
+                      Try Again
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            )}              {showQuotes && quotes.length > 0 && !isLoadingQuotes && (
+              <div className="relative">
+                {/* Quote Results - newspaper-style paywall for non-authenticated users */}
+                <div className={!user ? "relative overflow-hidden" : ""}>
+                  {/* Quote content without blur for better visibility */}
+                  <div className={!user ? 'quotes-locked' : ''}>
+                    <QuoteResults 
+                      quotes={quotes}
+                      vehicleRegistration={vehicleRegistration}
+                      onNewQuote={handleNewQuote}
+                    />
+                  </div>
+                  
+                  {/* Newspaper-style gradient overlay for non-authenticated users */}
+                  {!user && (
+                    <div className="absolute inset-0 z-10 quotes-paywall-overlay pointer-events-none"></div>
+                  )}
+                </div>
+
+                {/* Lock Overlay for Non-Authenticated Users - positioned in the lower portion */}
+                {!user && (
+                  <div className="absolute bottom-0 left-0 right-0 z-20 flex items-end justify-center pb-8 pointer-events-none">
+                    <div className="bg-white rounded-2xl p-8 shadow-2xl text-center max-w-md mx-4 pointer-events-auto border border-gray-200">
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Lock className="w-8 h-8 text-emerald-600" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Login to unlock all quotes</h3>
+                        <p className="text-gray-600">Sign in to see complete quote details and comparison features</p>
+                      </div>
+                      <div className="space-y-3">
+                        <Button 
+                          onClick={openLoginModal}
+                          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-medium"
+                        >
+                          Login
+                        </Button>
+                        <Button 
+                          onClick={openSignupModal}
+                          variant="outline"
+                          className="w-full border-emerald-500 text-emerald-600 hover:bg-emerald-50 py-3 rounded-lg font-medium"
+                        >
+                          Sign Up
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+>>>>>>> master
 
       {/* Services Section */}
       <section className="bg-gray-50 py-20">

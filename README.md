@@ -1,504 +1,275 @@
-# SundayInsurance: AI-Powered Vehicle Insurance Platform
+# SundayInsurance - Smart Vehicle Insurance Comparison Platform
 
-<div align="center">
+A comprehensive insurance comparison platform that helps users find the best vehicle insurance quotes from top insurers in India. The platform consists of a modern React frontend and a Node.js backend with web scraping capabilities.
 
-![SundayInsurance Logo](frontend/public/favicon.jpg)
+## 🚀 Features
 
-**A comprehensive insurance comparison platform with intelligent web scraping capabilities**
+### Frontend Features
+- **Smart Quote Comparison**: Compare insurance quotes from multiple providers
+- **User Authentication**: Firebase-based authentication system
+- **Responsive Design**: Modern, mobile-first UI built with React and Tailwind CSS
+- **Interactive Car Selection**: Multi-step car brand, model, and variant selection
+- **Real-time Updates**: Live quote fetching with loading states
+- **About Us Page**: Comprehensive company information and team details
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-[![Puppeteer](https://img.shields.io/badge/Puppeteer-40B5A4?style=for-the-badge&logo=puppeteer&logoColor=white)](https://pptr.dev/)
+### Backend Features
+- **Web Scraping API**: Automated quote collection from insurance websites
+- **Quote Processing**: Real-time quote extraction and formatting
+- **Error Handling**: Comprehensive error management and logging
+- **Rate Limiting**: API protection and usage control
+- **CORS Support**: Cross-origin request handling
 
-[Demo](#demo) • [Features](#features) • [Installation](#installation) • [API Documentation](#api-documentation) • [Contributing](#contributing)
+## 🏗️ Project Structure
 
-</div>
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [API Documentation](#api-documentation)
-- [Frontend Usage](#frontend-usage)
-- [ScraperAPI Usage](#scraperapi-usage)
-- [Configuration](#configuration)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-
-## 🔍 Overview
-
-SundayInsurance is a modern, AI-powered vehicle insurance comparison platform that combines a sleek React frontend with a robust web scraping backend. The platform enables users to compare insurance quotes from multiple providers through an intuitive interface while leveraging automated data collection capabilities.
-
-### Key Components
-
-- **Frontend**: Modern React application with TypeScript, Tailwind CSS, and Radix UI
-- **ScraperAPI**: Node.js/Express backend with Puppeteer-based web scraping capabilities
-- **AI Integration**: Intelligent quote analysis and recommendations
-- **Real-time Data**: Live insurance quote comparison from multiple providers
-
-## 🏗️ Architecture
-
-```mermaid
-graph TB
-    A[React Frontend] --> B[Express API Gateway]
-    B --> C[ScraperAPI Service]
-    C --> D[Puppeteer Browser]
-    D --> E[Insurance Providers]
-    B --> F[Cache Layer]
-    B --> G[Rate Limiting]
-    H[Winston Logger] --> I[Log Files]
-    C --> H
+```
+├── frontend/                 # React.js frontend application
+│   ├── src/
+│   │   ├── components/       # Reusable UI components
+│   │   ├── pages/           # Page components (Home, About Us)
+│   │   ├── contexts/        # React contexts (Auth)
+│   │   ├── services/        # API services
+│   │   └── lib/            # Utilities and configurations
+│   ├── public/             # Static assets
+│   └── package.json        # Frontend dependencies
+│
+├── ScraperAPI/              # Node.js backend API
+│   ├── src/
+│   │   ├── api/            # API routes
+│   │   ├── controllers/    # Request controllers
+│   │   ├── services/       # Business logic
+│   │   ├── middlewares/    # Express middlewares
+│   │   └── utils/          # Utility functions
+│   └── package.json        # Backend dependencies
+│
+└── README.md               # This file
 ```
 
-## ✨ Features
-
-### 🎯 Core Features
-- **Multi-step Vehicle Selection**: Brand → Model → Fuel Type → Variant → Registration Place
-- **Real-time Quote Comparison**: Live data from multiple insurance providers
-- **AI-Powered Recommendations**: Intelligent analysis of insurance options
-- **Responsive Design**: Modern UI that works on all devices
-- **Fast Performance**: Optimized with Vite build system and caching
-
-### 🤖 ScraperAPI Features
-- **Intelligent Web Scraping**: Automated data collection from insurance websites
-- **Session Management**: Persistent browser sessions for complex workflows
-- **Rate Limiting**: Built-in protection against API abuse
-- **Comprehensive Logging**: Detailed logging with Winston
-- **Error Handling**: Robust error management and recovery
-- **Caching System**: Redis-like caching for improved performance
-
-### 🛡️ Security & Performance
-- **Input Validation**: Joi-based request validation
-- **CORS Protection**: Configurable cross-origin resource sharing
-- **Helmet Integration**: Security headers and protection
-- **Memory Management**: Efficient browser instance management
-- **Request Throttling**: Configurable rate limiting
-
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
 ### Frontend
-- **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: Radix UI primitives
-- **Forms**: React Hook Form with Zod validation
-- **HTTP Client**: Axios
-- **State Management**: React Context/Hooks
+- **React 18** - Modern JavaScript framework
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vite** - Fast build tool
+- **Firebase** - Authentication and backend services
+- **Framer Motion** - Animation library
+- **React Router** - Client-side routing
 
-### Backend (ScraperAPI)
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Language**: TypeScript
-- **Web Scraping**: Puppeteer
-- **Logging**: Winston
-- **Validation**: Joi
-- **Caching**: Node-cache
-- **Testing**: Jest
-- **Security**: Helmet, CORS, Rate Limiting
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **TypeScript** - Type-safe JavaScript
+- **Puppeteer** - Web scraping and browser automation
+- **Winston** - Logging library
+- **CORS** - Cross-origin resource sharing
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Git
 
-```bash
-Node.js >= 18.0.0
-npm >= 8.0.0
-Git
-```
+### Frontend Setup
 
-### Installation
+1. Navigate to the frontend directory:
+   ```powershell
+   cd frontend
+   ```
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/devangk003/SundayInsurance.git
-cd SundayInsurance
-```
+2. Install dependencies:
+   ```powershell
+   npm install
+   ```
 
-2. **Install Frontend Dependencies**
-```bash
-cd frontend
-npm install
-```
+3. Create environment file:
+   ```powershell
+   Copy-Item .env.example .env.local
+   ```
 
-3. **Install ScraperAPI Dependencies**
-```bash
-cd ../ScraperAPI
-npm install
-```
+4. Configure Firebase in `.env.local`:
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   ```
 
-4. **Environment Configuration**
-```bash
-# In ScraperAPI directory
-cp .env.example .env
-# Edit .env with your configuration
-```
+5. Start the development server:
+   ```powershell
+   npm run dev
+   ```
 
-### Quick Start
+### Backend Setup
 
-#### Option 1: Run Both Services
-```bash
-# Terminal 1 - Start ScraperAPI
-cd ScraperAPI
-npm run dev
+1. Navigate to the ScraperAPI directory:
+   ```powershell
+   cd ScraperAPI
+   ```
 
-# Terminal 2 - Start Frontend
-cd frontend
-npm run dev
-```
+2. Install dependencies:
+   ```powershell
+   npm install
+   ```
 
-#### Option 2: Production Build
-```bash
-# Build Frontend
-cd frontend
-npm run build
+3. Build the TypeScript code:
+   ```powershell
+   npm run build
+   ```
 
-# Build and Start ScraperAPI
-cd ../ScraperAPI
-npm run build
-npm start
-```
+4. Start the server:
+   ```powershell
+   npm start
+   ```
 
-## 📁 Project Structure
+   Or for development with auto-reload:
+   ```powershell
+   npm run dev
+   ```
 
-```
-SundayInsurance/
-├── frontend/                   # React frontend application
-│   ├── public/                # Static assets
-│   ├── src/
-│   │   ├── components/        # Reusable UI components
-│   │   ├── pages/             # Page components
-│   │   ├── hooks/             # Custom React hooks
-│   │   ├── services/          # API service layer
-│   │   └── lib/               # Utility functions
-│   ├── package.json
-│   └── vite.config.ts
-│
-├── ScraperAPI/                # Backend scraping service
-│   ├── src/
-│   │   ├── api/               # Route definitions
-│   │   ├── controllers/       # Business logic
-│   │   ├── services/          # Core scraping services
-│   │   ├── middlewares/       # Express middlewares
-│   │   ├── config/            # Configuration files
-│   │   ├── types/             # TypeScript type definitions
-│   │   └── utils/             # Utility functions
-│   ├── RecorderScripts/       # Chrome recorder scripts
-│   ├── package.json
-│   └── tsconfig.json
-│
-└── README.md                  # This file
-```
-
-## 📚 API Documentation
+## 📝 API Documentation
 
 ### Base URL
 ```
-http://localhost:3000/api
+http://localhost:3001
 ```
 
 ### Endpoints
 
-#### Health Check
+#### Get Insurance Quotes
 ```http
-GET /health
+POST /api/quotes
 ```
 
-#### Scrape Insurance Quotes
-```http
-POST /scrape/quotes
-Content-Type: application/json
-
+**Request Body:**
+```json
 {
-  "vehicleDetails": {
-    "brand": "Maruti Suzuki",
-    "model": "Swift",
-    "variant": "VXI",
-    "fuelType": "Petrol",
-    "registrationPlace": "Mumbai"
-  },
-  "userDetails": {
-    "name": "John Doe",
-    "email": "john@example.com",
-    "phone": "9876543210",
-    "age": 30
-  }
+  "carReg": "DL01AB1234",
+  "phoneNumber": "9876543210",
+  "isPolicyExpired": true,
+  "hasMadeClaim": false,
+  "isNewCar": false
 }
 ```
 
-#### Get Cached Data
-```http
-GET /data/cached/:key
-```
-
-#### Session Management
-```http
-POST /session/create
-GET /session/:sessionId/status
-DELETE /session/:sessionId
-```
-
-### Response Format
+**Response:**
 ```json
 {
   "success": true,
   "data": {
     "quotes": [
       {
-        "provider": "Insure24",
-        "premium": 15000,
+        "company": "HDFC ERGO",
+        "premium": "₹5,234",
         "coverage": "Comprehensive",
         "features": ["Zero Depreciation", "Engine Protection"]
       }
     ]
-  },
-  "message": "Quotes fetched successfully",
-  "timestamp": "2025-06-01T10:30:00Z"
+  }
 }
 ```
 
-## 🎨 Frontend Usage
+## 🎨 UI Components
 
-### Vehicle Selection Flow
+The frontend includes a comprehensive set of reusable UI components:
 
-```typescript
-// Example vehicle selection
-const vehicleFlow = {
-  step1: 'Select Brand',      // Maruti Suzuki, Hyundai, etc.
-  step2: 'Choose Model',      // Swift, i20, etc.
-  step3: 'Pick Fuel Type',    // Petrol, Diesel, Electric
-  step4: 'Select Variant',    // VXI, SXI, ZXI
-  step5: 'Registration'       // State/City
-};
+- **Authentication Components**: Login, Signup modals with Firebase integration
+- **Form Components**: Input fields, search selects, validation
+- **Quote Components**: Quote results display, loading states
+- **Navigation**: Responsive header with smooth animations
+- **Cards**: Service cards, testimonial cards, feature cards
+
+## 🔧 Configuration
+
+### Frontend Configuration
+- **Vite Config**: `vite.config.ts`
+- **Tailwind Config**: `tailwind.config.ts`
+- **TypeScript Config**: `tsconfig.json`
+
+### Backend Configuration
+- **Server Config**: `src/config/config.ts`
+- **TypeScript Config**: `tsconfig.json`
+
+## 🚦 Scripts
+
+### Frontend Scripts
+```powershell
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint
 ```
 
-### Integration Example
-
-```typescript
-import { QuoteService } from './services/api';
-
-// Fetch insurance quotes
-const quotes = await QuoteService.getQuotes({
-  vehicleDetails,
-  userDetails
-});
+### Backend Scripts
+```powershell
+npm run dev          # Start with nodemon
+npm run build        # Compile TypeScript
+npm start            # Start production server
+npm run test         # Run tests
 ```
 
-## 🕷️ ScraperAPI Usage
+## 🔐 Environment Variables
 
-### Basic Scraping
-
-```typescript
-import { ScraperService } from './services/scraperService';
-
-// Initialize scraper
-const scraper = new ScraperService();
-
-// Scrape quotes
-const quotes = await scraper.scrapeQuotes({
-  url: 'https://insurance-provider.com',
-  vehicleData: vehicleDetails
-});
-```
-
-### Session Management
-
-```typescript
-// Create persistent session
-const session = await SessionService.create({
-  provider: 'insure24',
-  options: { headless: false }
-});
-
-// Use session for multiple operations
-await session.navigateAndFill(formData);
-const results = await session.extractQuotes();
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-#### ScraperAPI (.env)
+### Frontend (.env.local)
 ```env
-# Server Configuration
-PORT=3000
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+VITE_API_BASE_URL=http://localhost:3001
+```
+
+### Backend (.env)
+```env
+PORT=3001
 NODE_ENV=development
-
-# Scraping Configuration
-PUPPETEER_HEADLESS=true
-PUPPETEER_TIMEOUT=30000
-MAX_CONCURRENT_SESSIONS=5
-
-# Rate Limiting
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
-
-# Logging
-LOG_LEVEL=info
-LOG_FILE_PATH=./logs/
-
-# Cache Configuration
-CACHE_TTL=3600
-CACHE_MAX_KEYS=1000
+CORS_ORIGIN=http://localhost:5173
 ```
 
-#### Frontend (.env)
-```env
-VITE_API_BASE_URL=http://localhost:3000/api
-VITE_APP_TITLE=SundayInsurance
-VITE_ENABLE_ANALYTICS=false
-```
+## 📱 Features in Detail
 
-## 🧪 Testing
+### Quote Comparison
+- Multi-step car selection process
+- Real-time quote fetching from multiple insurers
+- Comprehensive quote comparison with features
+- User authentication for detailed quotes
 
-### Frontend Tests
-```bash
-cd frontend
-npm run test           # Run tests
-npm run test:coverage  # Generate coverage report
-```
+### About Us Page
+- Company information and mission
+- Team member profiles
+- Core values and statistics
+- Contact information
 
-### ScraperAPI Tests
-```bash
-cd ScraperAPI
-npm test              # Run Jest tests
-npm run test:watch    # Watch mode
-npm run test:coverage # Coverage report
-```
-
-### Test Structure
-```
-ScraperAPI/tests/
-├── unit/              # Unit tests
-├── integration/       # Integration tests
-├── e2e/              # End-to-end tests
-└── fixtures/         # Test data
-```
-
-## 🚀 Deployment
-
-### Production Build
-
-```bash
-# Build frontend
-cd frontend
-npm run build
-
-# Build ScraperAPI
-cd ../ScraperAPI
-npm run build
-```
-
-### Docker Deployment
-
-```dockerfile
-# Dockerfile example for ScraperAPI
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY dist ./dist
-EXPOSE 3000
-CMD ["node", "dist/server.js"]
-```
-
-### Cloud Deployment Options
-
-- **Google Cloud Run**: Serverless container deployment
-- **AWS ECS**: Container orchestration
-- **Heroku**: Platform-as-a-service
-- **DigitalOcean**: Droplet-based deployment
-
-## 📊 Performance Monitoring
-
-### Metrics Tracked
-- API response times
-- Scraping success rates
-- Memory usage
-- Browser session health
-- Cache hit rates
-
-### Logging Levels
-```
-ERROR: Critical errors requiring immediate attention
-WARN:  Warnings that should be monitored
-INFO:  General information about operations
-DEBUG: Detailed debugging information
-```
+### User Experience
+- Smooth animations and transitions
+- Responsive design for all devices
+- Loading states and error handling
+- Auto-scroll to results
 
 ## 🤝 Contributing
 
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Add tests for new functionality**
-5. **Ensure all tests pass**
-   ```bash
-   npm test
-   ```
-6. **Commit your changes**
-   ```bash
-   git commit -m "Add amazing feature"
-   ```
-7. **Push to your branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-8. **Open a Pull Request**
-
-### Code Style Guidelines
-
-- **TypeScript**: Strict type checking enabled
-- **ESLint**: Consistent code formatting
-- **Prettier**: Automated code formatting
-- **Conventional Commits**: Standardized commit messages
-
-### Pull Request Checklist
-
-- [ ] Code follows project style guidelines
-- [ ] Tests added for new functionality
-- [ ] All tests pass
-- [ ] Documentation updated
-- [ ] PR description clearly explains changes
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Puppeteer Team**: For the excellent web scraping framework
-- **React Team**: For the amazing frontend library
-- **Radix UI**: For accessible UI components
-- **Tailwind CSS**: For utility-first styling
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-For support and questions:
+For support, email support@sundayinsurance.com or join our Discord channel.
 
-- **GitHub Issues**: [Create an issue](https://github.com/devangk003/SundayInsurance/issues)
-- **Email**: devangk003@gmail.com
-- **Documentation**: [Wiki](https://github.com/devangk003/SundayInsurance/wiki)
+## 🙏 Acknowledgments
+
+- Firebase for authentication services
+- Tailwind CSS for the design system
+- Framer Motion for animations
+- The React and Node.js communities
 
 ---
 
-<div align="center">
-
-**Built with ❤️ by the SundayInsurance Team**
-
-[⬆ Back to Top](#sundayinsurance-ai-powered-vehicle-insurance-platform)
-
-</div>
+**SundayInsurance** - Making insurance simple, transparent, and accessible for everyone.

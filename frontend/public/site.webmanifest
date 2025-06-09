@@ -1,7 +1,13 @@
 {
+<<<<<<< HEAD
   "name": "SundayInsurance: AI Powered Vehicle Insurance",
   "short_name": "SundayInsurance",
   "description": "AI-powered vehicle insurance comparison platform",
+=======
+  "name": "SundayInsurance: Smart Vehicle Insurance",
+  "short_name": "SundayInsurance",
+  "description": "Smart vehicle insurance comparison platform",
+>>>>>>> master
   "icons": [
     {
       "src": "/favicon-16x16.png",

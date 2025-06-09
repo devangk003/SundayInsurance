@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SundayInsurance: AI Powered Vehicle Insurance
 
 An AI-powered vehicle insurance comparison platform built with React + TypeScript + Vite that helps users find the best insurance quotes from top insurers.
@@ -5,6 +6,15 @@ An AI-powered vehicle insurance comparison platform built with React + TypeScrip
 ## Features
 
 - 🤖 AI-powered quote analysis and recommendations
+=======
+# SundayInsurance: Smart Vehicle Insurance
+
+A modern vehicle insurance comparison platform built with React + TypeScript + Vite that helps users find the best insurance quotes from top insurers.
+
+## Features
+
+- 🔍 Smart quote analysis and recommendations
+>>>>>>> master
 - 🔍 Real-time insurance quote comparison
 - 🚗 Comprehensive vehicle coverage options
 - 📱 Responsive design with modern UI

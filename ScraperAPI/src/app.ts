@@ -1,4 +1,8 @@
 import express from 'express';
+<<<<<<< HEAD
+=======
+import cors from 'cors';
+>>>>>>> master
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import routes from './api/routes';
@@ -7,6 +11,22 @@ import logger from './utils/logger';
 
 const app = express();
 
+<<<<<<< HEAD
+=======
+// CORS configuration
+app.use(cors({
+  origin: [
+    'http://localhost:8080',
+    'http://localhost:3000',
+    'http://127.0.0.1:8080',
+    'http://127.0.0.1:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+>>>>>>> master
 // Middleware
 app.use(express.json());
 app.use(helmet());
