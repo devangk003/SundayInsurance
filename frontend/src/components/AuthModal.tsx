@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -144,17 +144,74 @@ const AuthModal: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-  return (
-    <Dialog open={isLoginModalOpen} onOpenChange={handleModalClose}>
-      <DialogContent className="sm:max-w-[480px] p-0">        <DialogHeader className="px-6 pt-6 pb-2">
-          <DialogTitle className="text-2xl font-bold text-center">
+  };  return (
+    <Dialog open={isLoginModalOpen} onOpenChange={handleModalClose}>      <DialogContent 
+        className="sm:max-w-[480px] p-0 border-0 rounded-3xl overflow-hidden"
+        style={{
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: `
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.05)
+          `
+        }}      >
+        {/* Liquid Glass Inner Glow */}
+        <div 
+          className="absolute inset-0 rounded-3xl pointer-events-none"
+          style={{
+            background: `
+              linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.03) 75%, 
+                rgba(255, 255, 255, 0.08) 100%
+              )
+            `
+          }}
+        />
+        
+        {/* Floating Glass Particles */}
+        <div className="absolute top-4 left-4 w-2 h-2 bg-white/20 rounded-full blur-sm animate-pulse" />
+        <div className="absolute top-8 right-6 w-1 h-1 bg-white/30 rounded-full blur-sm animate-pulse animation-delay-1000" />
+        <div className="absolute bottom-16 left-8 w-1.5 h-1.5 bg-white/15 rounded-full blur-sm animate-pulse animation-delay-2000" />
+
+        {/* Custom Close Button using DialogClose */}
+        <DialogClose asChild>
+          <button
+            className="absolute right-4 top-4 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
+            style={{
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(15px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+            }}
+          >
+            <X className="h-4 w-4 text-white/70 hover:text-white" />
+          </button>
+        </DialogClose>
+
+        <DialogHeader className="px-6 pt-6 pb-2 relative z-10">
+          <DialogTitle className="text-2xl font-bold text-center text-white">
             {modalMode === "login" ? "Welcome Back" : "Create Account"}
           </DialogTitle>
-        </DialogHeader><div className="px-6 pb-6">
+        </DialogHeader><div className="px-6 pb-6 relative z-10">
           <Tabs value={authMethod} onValueChange={(value) => setAuthMethod(value as "email" | "phone")}>
-            <TabsList className="grid w-full grid-cols-1 mb-6">
-              <TabsTrigger value="email" className="flex items-center gap-2">
+            <TabsList 
+              className="grid w-full grid-cols-1 mb-6 border-0 rounded-2xl p-1"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              <TabsTrigger 
+                value="email" 
+                className="flex items-center gap-2 text-white rounded-xl border-0 data-[state=active]:bg-white/10 data-[state=active]:text-white"
+              >
                 <Mail className="h-4 w-4" />
                 Email
               </TabsTrigger>
@@ -163,11 +220,21 @@ const AuthModal: React.FC = () => {
                 <Phone className="h-4 w-4" />
                 Phone
               </TabsTrigger> */}
-            </TabsList>
-
-            {(error || success) && (
-              <Alert className={`mb-4 ${success ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}`}>
-                <AlertDescription className={success ? 'text-green-800' : 'text-red-800'}>
+            </TabsList>            {(error || success) && (
+              <Alert 
+                className="mb-4 border-0 rounded-2xl"
+                style={{
+                  background: success 
+                    ? 'rgba(34, 197, 94, 0.15)' 
+                    : 'rgba(239, 68, 68, 0.15)',
+                  backdropFilter: 'blur(15px)',
+                  border: success 
+                    ? '1px solid rgba(34, 197, 94, 0.3)' 
+                    : '1px solid rgba(239, 68, 68, 0.3)',
+                  boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                }}
+              >
+                <AlertDescription className={success ? 'text-green-200' : 'text-red-200'}>
                   {error || success}
                 </AlertDescription>
               </Alert>
@@ -175,9 +242,8 @@ const AuthModal: React.FC = () => {
 
             <TabsContent value="email" className="space-y-4">
               {!confirmationResult && (
-                <form onSubmit={handleEmailAuth} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                <form onSubmit={handleEmailAuth} className="space-y-4">                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-white/90">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -186,11 +252,18 @@ const AuthModal: React.FC = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={loading}
+                      className="border-0 rounded-xl text-white placeholder:text-white/60"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(15px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                      }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-white/90">Password</Label>
                     <div className="relative">
                       <Input
                         id="password"
@@ -201,12 +274,19 @@ const AuthModal: React.FC = () => {
                         required
                         disabled={loading}
                         minLength={6}
+                        className="border-0 rounded-xl text-white placeholder:text-white/60 pr-10"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          backdropFilter: 'blur(15px)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                        }}
                       />
                       <Button
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="absolute right-2 top-0 h-full w-8"
+                        className="absolute right-2 top-0 h-full w-8 text-white/70 hover:text-white hover:bg-white/10"
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -214,7 +294,7 @@ const AuthModal: React.FC = () => {
                     </div>
                   </div>                  {modalMode === "signup" && (
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <Label htmlFor="confirmPassword" className="text-white/90">Confirm Password</Label>
                       <Input
                         id="confirmPassword"
                         type="password"
@@ -224,6 +304,13 @@ const AuthModal: React.FC = () => {
                         required
                         disabled={loading}
                         minLength={6}
+                        className="border-0 rounded-xl text-white placeholder:text-white/60"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          backdropFilter: 'blur(15px)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                        }}
                       />
                     </div>
                   )}

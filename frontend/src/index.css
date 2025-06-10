@@ -2,6 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom utilities for hiding scrollbars */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
+    transform: translateZ(0);
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-slate-600::-webkit-scrollbar-thumb {
+    background-color: rgb(71 85 105);
+    border-radius: 0.375rem;
+  }
+
+  /* Hardware acceleration for better performance */
+  .card-container {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: height;
+  }
+
+  /* Smooth transitions for all animations */
+  .motion-safe {
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .scrollbar-track-transparent::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Animation delay utilities for floating particles */
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+    .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+  /* Infinite scroll animations for testimonials */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .testimonials-scroll {
+    animation: scroll-left 25s linear infinite;
+    will-change: transform;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .testimonials-scroll:hover {
+    animation-play-state: paused;
+  }
+  /* Smooth scrolling container */
+  .testimonials-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+
+  .testimonials-container::before,
+  .testimonials-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .testimonials-container::before {
+    left: 0;
+    background: linear-gradient(to right, #F5F1ED 0%, #F5F1ED 60%, transparent 100%);
+  }
+
+  .testimonials-container::after {
+    right: 0;
+    background: linear-gradient(to left, #F5F1ED 0%, #F5F1ED 60%, transparent 100%);
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .testimonials-container {
+      margin: 0 -16px;
+      padding: 0 16px;
+    }
+    
+    .testimonials-container::before,
+    .testimonials-container::after {
+      width: 25px;
+    }
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -93,6 +213,7 @@
 @layer base {
   * {
     @apply border-border;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -487,4 +608,436 @@ video[style*="mask"] {
 .quotes-locked {
   pointer-events: none;
   user-select: none;
+}
+
+/* Quotes section background color to match the image */
+.quotes-section-bg {
+  background: linear-gradient(135deg, #e7223a 0%, #d41e35 50%, #c41a30 100%) !important;
+  background-color: #e7223a !important; /* Fallback */
+}
+
+/* Parallax background image for quotes section */
+.quotes-parallax-bg {
+  background-image: url('/get-your-quotes-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* Alternative parallax implementation for better browser compatibility */
+.quotes-parallax-scroll {
+  background-image: url('/get-your-quotes-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Star Wars Hyperspace animation for dots */
+@keyframes hyperspaceFlow {
+  0% {
+    background-size: 60px 60px, 40px 40px;
+    opacity: 0.3;
+  }
+  50% {
+    background-size: 120px 120px, 80px 80px;
+    opacity: 0.6;
+  }
+  100% {
+    background-size: 200px 200px, 140px 140px;
+    opacity: 0.1;
+  }
+}
+
+/* Alternative hyperspace animation for the second layer */
+@keyframes hyperspaceFlowSecondary {
+  0% {
+    background-size: 40px 40px;
+    opacity: 0.2;
+  }
+  50% {
+    background-size: 100px 100px;
+    opacity: 0.4;
+  }
+  100% {
+    background-size: 180px 180px;
+    opacity: 0.05;
+  }
+}
+
+/* Animation delay utilities for Star Wars animations */
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+/* Additional animation delays for enhanced mobile menu */
+.animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+
+/* Enhanced shimmer animation for mobile menu separator */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Touch-optimized styles for mobile */
+@media (max-width: 768px) {
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Enhanced button hover states for touch devices */
+  .mobile-button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-out;
+  }
+  
+  /* Improved text rendering on mobile */
+  .mobile-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Better scrolling on mobile */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Responsive breakpoint enhancements */
+@media (max-width: 640px) {
+  .mobile-nav-item {
+    min-height: 60px;
+    font-size: 1.125rem;
+  }
+  
+  .mobile-user-avatar {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .mobile-button-lg {
+    min-height: 56px;
+    font-size: 1.125rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* Enhanced glass morphism effects for mobile */
+@media (max-width: 768px) {
+  .mobile-glass {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.3),
+      0 8px 32px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-glass-item {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      inset 0 2px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+      0 4px 20px rgba(0, 0, 0, 0.08),
+      0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Floating particle animations for mobile menu */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-5px) translateX(-3px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-15px) translateX(8px);
+    opacity: 0.3;
+  }
+}
+
+.floating-particle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+.floating-particle:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.floating-particle:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.floating-particle:nth-child(4) {
+  animation-delay: 3s;
+}
+
+.floating-particle:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* Enhanced mobile responsive styles for modals and components */
+@media (max-width: 639px) {
+  /* Auth Modal responsive fixes - match hero section spacing (px-4) */
+  [data-radix-dialog-content] {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    max-width: calc(100vw - 2rem) !important;
+    width: calc(100vw - 2rem) !important;
+  }
+
+  /* Better mobile text rendering */
+  .mobile-bold-text {
+    font-weight: 700 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Enhanced mobile menu spacing */
+  .mobile-menu-spacing {
+    padding: 2rem 1.5rem;
+  }
+  
+  /* Mobile glass effects enhancement */
+  .mobile-glass-enhanced {
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 25px 70px rgba(0, 0, 0, 0.35),
+      0 10px 40px rgba(0, 0, 0, 0.2),
+      inset 0 2px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Better button touch targets */
+  .mobile-button-enhanced {
+    min-height: 60px;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  /* Modal overlay improvements */
+  [data-radix-dialog-overlay] {
+    backdrop-filter: blur(8px) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+  }
+}
+
+/* Tablet responsive modal styles - match hero section (sm:px-6) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  [data-radix-dialog-content] {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    max-width: calc(100vw - 3rem) !important;
+  }
+}
+
+/* Desktop responsive modal styles - match hero section (lg:px-8) */
+@media (min-width: 1024px) {
+  [data-radix-dialog-content] {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    max-width: calc(100vw - 4rem) !important;
+  }
+}
+
+/* How SundayInsurance Works Section Background */
+.how-works-section {
+  background: #F5F1ED;
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.how-works-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.how-works-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    /* Subtle wave-like patterns using very gentle color variations */
+    radial-gradient(ellipse 800px 400px at 20% 30%, rgba(245, 241, 236, 0.8) 0%, rgba(245, 241, 236, 0.3) 50%, transparent 70%),
+    radial-gradient(ellipse 600px 300px at 80% 20%, rgba(248, 244, 239, 0.6) 0%, rgba(248, 244, 239, 0.2) 60%, transparent 80%),
+    radial-gradient(ellipse 700px 350px at 10% 70%, rgba(250, 246, 241, 0.7) 0%, rgba(250, 246, 241, 0.3) 50%, transparent 75%),
+    radial-gradient(ellipse 500px 250px at 90% 80%, rgba(246, 242, 237, 0.5) 0%, rgba(246, 242, 237, 0.2) 60%, transparent 85%),
+    radial-gradient(ellipse 900px 450px at 60% 10%, rgba(249, 245, 240, 0.6) 0%, rgba(249, 245, 240, 0.25) 55%, transparent 80%);
+  
+  background-size: 
+    1600px 800px,
+    1200px 600px,
+    1400px 700px,
+    1000px 500px,
+    1800px 900px;
+    
+  animation: gentleWaveFlow 40s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+.how-works-bg::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: 
+    /* Additional layer for more organic wave feeling */
+    radial-gradient(ellipse 1000px 200px at 40% 50%, rgba(252, 248, 243, 0.4) 0%, rgba(252, 248, 243, 0.15) 60%, transparent 80%),
+    radial-gradient(ellipse 800px 180px at 70% 30%, rgba(247, 243, 238, 0.5) 0%, rgba(247, 243, 238, 0.2) 65%, transparent 85%),
+    radial-gradient(ellipse 1200px 250px at 15% 80%, rgba(251, 247, 242, 0.45) 0%, rgba(251, 247, 242, 0.18) 55%, transparent 75%);
+  
+  background-size: 
+    2000px 400px,
+    1600px 360px,
+    2400px 500px;
+    
+  animation: gentleWaveFlow 50s ease-in-out infinite reverse;
+  mix-blend-mode: overlay;
+}
+
+/* Gentle flowing wave animation */
+@keyframes gentleWaveFlow {
+  0%, 100% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(15px, -10px) rotate(0.5deg) scale(1.02);
+  }
+  50% {
+    transform: translate(25px, 5px) rotate(-0.3deg) scale(0.98);
+  }
+  75% {
+    transform: translate(10px, 15px) rotate(0.2deg) scale(1.01);
+  }
+}
+
+/* Responsive adjustments for the wavy background */
+@media (max-width: 768px) {
+  .how-works-bg::before {
+    background-size: 
+      1200px 600px,
+      900px 450px,
+      1050px 525px,
+      750px 375px,
+      1350px 675px;
+    animation-duration: 35s;
+  }
+  
+  .how-works-bg::after {
+    background-size: 
+      1500px 300px,
+      1200px 270px,
+      1800px 375px;
+    animation-duration: 45s;
+  }
+}
+
+@media (max-width: 480px) {
+  .how-works-bg::before {
+    background-size: 
+      900px 450px,
+      675px 337px,
+      787px 393px,
+      562px 281px,
+      1012px 506px;
+    animation-duration: 30s;
+  }
+  
+  .how-works-bg::after {
+    background-size: 
+      1125px 225px,
+      900px 202px,
+      1350px 281px;
+    animation-duration: 40s;
+  }
+  
+  .how-works-section {
+    min-height: 400px;
+  }
+}
+
+/* Quotes section container with beige background and rounded corners */
+.quotes-section-container {
+  background-color: #F5F1ED;
+  border-radius: 24px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.quotes-section-container .quotes-inner {
+  background: rgb(2, 6, 23);
+  border-radius: 24px;
+  overflow: hidden;
 }

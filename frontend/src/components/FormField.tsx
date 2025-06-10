@@ -11,6 +11,7 @@ interface FormFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
+  className?: string;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -22,12 +23,12 @@ const FormField: React.FC<FormFieldProps> = ({
   onChange,
   placeholder,
   required = false,
+  className,
 }) => {
-  return (
-    <div className="space-y-2">
-      <Label htmlFor={id || name} className="text-sm font-medium">
+  return (    <div className="space-y-2">
+      <Label htmlFor={id || name} className="text-sm font-medium text-white drop-shadow-md">
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="text-red-300 ml-1">*</span>}
       </Label>
       <Input
         id={id || name}
@@ -37,7 +38,7 @@ const FormField: React.FC<FormFieldProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="w-full"
+        className={`w-full ${className || ''}`}
       />
     </div>
   );
