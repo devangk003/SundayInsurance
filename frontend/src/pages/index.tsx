@@ -86,9 +86,17 @@ const Index = () => {
     registration: "MH12AB1234"
   });
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Mock insurance providers data for hero section (fallback)
+    // Mock insurance providers data for hero section (fallback)
   const fallbackHeroProviders: HeroInsuranceProvider[] = [
+    {
+      name: "AI Recommendation",
+      logo: "✨",
+      logoColor: "bg-gradient-to-br from-blue-400 to-purple-500",
+      price: "Best Match",
+      idv: "Optimized",
+      coverage: "AI Analyzed",
+      features: ["Smart Analysis", "Best Value Detection", "Personalized Match"]
+    },
     {
       name: "ICICI Lombard",
       logo: "IL",
@@ -460,10 +468,9 @@ const Index = () => {
         };
 
         // Try to fetch real quotes, fallback to mock data
-        const response = await fetchInsuranceQuotes(mockQuoteData);
-          if (response.success && response.quotes.length > 0) {
+        const response = await fetchInsuranceQuotes(mockQuoteData);        if (response.success && response.quotes.length > 0) {
           // Transform API quotes to hero format
-          const transformedProviders: HeroInsuranceProvider[] = response.quotes.slice(0, 5).map(quote => {
+          const transformedProviders: HeroInsuranceProvider[] = response.quotes.slice(0, 4).map(quote => {
             // Parse premium string to number for calculations
             const premiumValue = parseFloat(quote.premium.replace(/[₹,]/g, '')) || 0;
             const idvValue = parseFloat(quote.idv.replace(/[₹,]/g, '')) || 0;
@@ -478,7 +485,19 @@ const Index = () => {
               features: quote.details?.coverages?.slice(0, 3) || ["Cashless Claims", "24x7 Support", "NCB Protection"]
             };
           });
-          setHeroProviders(transformedProviders);
+          
+          // Add AI recommendation as the first item
+          const aiRecommendation: HeroInsuranceProvider = {
+            name: "AI Recommendation",
+            logo: "✨",
+            logoColor: "bg-gradient-to-br from-blue-400 to-purple-500",
+            price: "Best Match",
+            idv: "Optimized",
+            coverage: "AI Analyzed",
+            features: ["Smart Analysis", "Best Value Detection", "Personalized Match"]
+          };
+          
+          setHeroProviders([aiRecommendation, ...transformedProviders]);
         } else {
           // Use fallback data if API fails
           setHeroProviders(fallbackHeroProviders);
@@ -895,6 +914,25 @@ const Index = () => {
                 })}
               </nav>              {user ? (
                 <div className="flex items-center space-x-3">
+                  <Link to="/dashboard">
+                    <Button
+                      variant="ghost"
+                      className="px-4 py-2 rounded-full transition-all duration-300"
+                      style={{
+                        background: isScrolled 
+                          ? 'rgba(16, 185, 129, 0.2)' 
+                          : 'rgba(16, 185, 129, 0.15)',
+                        backdropFilter: 'blur(15px)',
+                        border: isScrolled 
+                          ? '1px solid rgba(16, 185, 129, 0.4)' 
+                          : '1px solid rgba(16, 185, 129, 0.3)',
+                        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                        color: isScrolled ? '#10b981' : '#ffffff'
+                      }}
+                    >
+                      Dashboard
+                    </Button>
+                  </Link>
                   <div 
                     className="flex items-center space-x-2 rounded-full px-3 py-1"
                     style={{
@@ -935,7 +973,7 @@ const Index = () => {
                   >
                     Logout
                   </Button>
-                </div>) : (
+                </div>): (
                 <div className="flex items-center space-x-3">
                   <Button
                     onClick={openLoginModal}
@@ -1102,8 +1140,7 @@ const Index = () => {
                       ease: "easeOut"
                     }}
                     className="space-y-3"
-                  >
-                    <div className="flex items-center space-x-3 px-4 py-3 rounded-xl"
+                  >                    <div className="flex items-center space-x-3 px-4 py-3 rounded-xl"
                       style={{
                         background: 'rgba(16, 185, 129, 0.15)',
                         backdropFilter: 'blur(15px)',
@@ -1126,6 +1163,26 @@ const Index = () => {
                         <span className="text-emerald-600 text-xs">Online</span>
                       </div>
                     </div>
+
+                    <Link to="/dashboard" onClick={closeMobileMenu}>
+                      <Button
+                        variant="outline"
+                        className="w-full border-0 rounded-xl py-3 font-medium hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 touch-manipulation"
+                        style={{
+                          background: 'rgba(16, 185, 129, 0.15)',
+                          backdropFilter: 'blur(15px)',
+                          border: '1px solid rgba(16, 185, 129, 0.3)',
+                          boxShadow: `
+                            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                            0 2px 8px rgba(16, 185, 129, 0.1)
+                          `,
+                          color: '#10b981',
+                          minHeight: '44px'
+                        }}
+                      >
+                        Dashboard
+                      </Button>
+                    </Link>
 
                     <Button
                       onClick={() => {
@@ -1389,7 +1446,8 @@ const Index = () => {
                   <span className="text-blue-300 font-medium text-sm">AI Recommended for You</span>
                 </div>                {/* Insurance Provider Cards Container */}
                 <div className="flex-1 overflow-y-auto scrollbar-hide relative card-container" ref={scrollContainerRef}>
-                  <div className="space-y-3">                    {heroProviders.map((provider, index) => (
+                  <div className="space-y-3 relative">
+                    {heroProviders.map((provider, index) => (
                       <motion.div
                         key={provider.name}
                         initial={false}
@@ -1401,7 +1459,7 @@ const Index = () => {
                           ease: [0.25, 0.46, 0.45, 0.94],
                           type: "tween"
                         }}
-                        className="overflow-hidden rounded-xl border cursor-pointer"
+                        className="overflow-hidden rounded-xl border cursor-pointer relative"
                         style={{
                           transformOrigin: 'top',
                           willChange: 'height, background-color, border-color, box-shadow',
@@ -1424,9 +1482,15 @@ const Index = () => {
                             `,
                           transition: 'background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease'
                         }}
-                        onClick={() => setSelectedProviderIndex(selectedProviderIndex === index ? -1 : index)}
-                      >
-                      {/* Collapsed Header (Always Visible) */}
+                        onClick={() => {
+                          if (!user && index > 0) {
+                            // If user is not logged in and clicking on policy details (not AI recommendation)
+                            openLoginModal();
+                            return;
+                          }
+                          setSelectedProviderIndex(selectedProviderIndex === index ? -1 : index);
+                        }}
+                      >{/* Collapsed Header (Always Visible) */}
                       <div className="p-4 flex items-center justify-between flex-shrink-0">
                         <div className="flex items-center gap-2">
                           <div className={`w-6 h-6 ${provider.logoColor} rounded flex items-center justify-center flex-shrink-0`}>
@@ -1434,15 +1498,27 @@ const Index = () => {
                           </div>
                           <span className={`font-semibold transition-colors duration-200 ${
                             selectedProviderIndex === index ? 'text-white' : 'text-slate-300'
-                          }`}>
+                          } ${index === 0 ? 'text-blue-300' : ''}`}>
                             {provider.name}
                           </span>
+                          {index === 0 && (
+                            <div 
+                              className="px-2 py-1 rounded-full text-xs font-medium"
+                              style={{
+                                background: 'rgba(59, 130, 246, 0.2)',
+                                border: '1px solid rgba(59, 130, 246, 0.3)',
+                                color: '#60a5fa'
+                              }}
+                            >
+                              AI
+                            </div>
+                          )}
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <span className={`font-semibold transition-all duration-200 ${
                             selectedProviderIndex === index ? 'text-white text-lg' : 'text-white'
-                          }`}>
-                            {provider.price}/yr
+                          } ${index === 0 ? 'text-blue-300' : ''}`}>
+                            {index === 0 ? provider.price : `${provider.price}/yr`}
                           </span>
                           <motion.div
                             animate={{ rotate: selectedProviderIndex === index ? 180 : 0 }}
@@ -1461,41 +1537,165 @@ const Index = () => {
                           transition={{ duration: 0.25, delay: 0.1 }}
                           className="px-4 pb-4"
                         >
-                          <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                            <div>
-                              <span className="text-slate-400">IDV</span>
-                              <div className="text-white font-semibold">{provider.idv}</div>
-                            </div>
-                            <div>
-                              <span className="text-slate-400">Coverage</span>
-                              <div className="text-white font-semibold">{provider.coverage}</div>
-                            </div>
-                          </div>
-                          {/* Features */}
-                          <div className="space-y-2">
-                            <h4 className="text-white font-medium text-sm">Key Features:</h4>
-                            <div className="grid grid-cols-1 gap-2">
-                              {provider.features.map((feature, featureIndex) => (
-                                <motion.div 
-                                  key={featureIndex} 
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ 
-                                    duration: 0.2, 
-                                    delay: featureIndex * 0.05 + 0.15 
-                                  }}
-                                  className="flex items-center gap-2 text-xs"
+                          {index === 0 ? (
+                            // AI Recommendation expanded content
+                            <div className="space-y-3">
+                              <div 
+                                className="p-3 rounded-xl"
+                                style={{
+                                  background: 'rgba(59, 130, 246, 0.1)',
+                                  border: '1px solid rgba(59, 130, 246, 0.2)'
+                                }}
+                              >
+                                <div className="text-blue-300 text-sm font-medium mb-2">AI Analysis Results</div>
+                                <div className="text-xs text-slate-300">
+                                  Our AI has analyzed 50+ insurance providers to find the optimal coverage 
+                                  for your {heroVehicleData.brand} {heroVehicleData.model}.
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-3 text-sm">
+                                <div 
+                                  className="p-2 rounded-lg"
+                                  style={{ background: 'rgba(16, 185, 129, 0.1)' }}
                                 >
-                                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full flex-shrink-0"></div>
-                                  <span className="text-slate-300">{feature}</span>
-                                </motion.div>
-                              ))}
+                                  <div className="text-emerald-300 text-xs">Best Value</div>
+                                  <div className="text-white font-semibold">₹2,850</div>
+                                </div>
+                                <div 
+                                  className="p-2 rounded-lg"
+                                  style={{ background: 'rgba(139, 92, 246, 0.1)' }}
+                                >
+                                  <div className="text-purple-300 text-xs">Coverage Score</div>
+                                  <div className="text-white font-semibold">9.2/10</div>
+                                </div>
+                              </div>
+                              {user && (
+                                <div 
+                                  className="p-3 rounded-xl text-center"
+                                  style={{
+                                    background: 'rgba(16, 185, 129, 0.1)',
+                                    border: '1px solid rgba(16, 185, 129, 0.2)'
+                                  }}
+                                >
+                                  <div className="text-emerald-300 text-sm font-medium">Ready to proceed!</div>
+                                  <div className="text-xs text-slate-300 mt-1">
+                                    Click below to see your personalized quotes
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          </div>
-                        </motion.div>
-                      )}
+                          ) : (
+                            // Regular provider expanded content
+                            <>
+                              <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+                                <div>
+                                  <span className="text-slate-400">IDV</span>
+                                  <div className="text-white font-semibold">{provider.idv}</div>
+                                </div>
+                                <div>
+                                  <span className="text-slate-400">Coverage</span>
+                                  <div className="text-white font-semibold">{provider.coverage}</div>
+                                </div>
+                              </div>
+                              {/* Features */}
+                              <div className="space-y-2">
+                                <h4 className="text-white font-medium text-sm">Key Features:</h4>
+                                <div className="grid grid-cols-1 gap-2">
+                                  {provider.features.map((feature, featureIndex) => (
+                                    <motion.div 
+                                      key={featureIndex} 
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ 
+                                        duration: 0.2, 
+                                        delay: featureIndex * 0.05 + 0.15 
+                                      }}
+                                      className="flex items-center gap-2 text-xs"
+                                    >
+                                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full flex-shrink-0"></div>
+                                      <span className="text-slate-300">{feature}</span>
+                                    </motion.div>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </motion.div>                        )}
                     </motion.div>
-                  ))}
+                  ))}                  {/* Single Glass Overlay covering all policy detail tiles (except AI recommendation) for logged-out users */}
+                  {!user && (
+                    <div 
+                      className="absolute z-20 rounded-xl flex flex-col items-center justify-center cursor-pointer"
+                      style={{
+                        top: '76px', // Position after first card (AI recommendation) + gap
+                        left: '0',
+                        right: '0',
+                        bottom: '0',                        background: 'rgba(75, 85, 99, 0.95)',
+                        backdropFilter: 'blur(50px) saturate(180%)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: `
+                          0 8px 32px rgba(0, 0, 0, 0.5),
+                          inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                          inset 0 -1px 0 rgba(255, 255, 255, 0.05)
+                        `
+                      }}
+                      onClick={() => openLoginModal()}
+                    >
+                      {/* Liquid Glass Lock Icon */}
+                      <div 
+                        className="w-12 h-12 mb-4 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.15)',
+                          backdropFilter: 'blur(15px)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)',
+                          boxShadow: `
+                            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                            0 4px 15px rgba(0, 0, 0, 0.2)
+                          `
+                        }}
+                      >
+                        <Lock className="w-6 h-6 text-white/90" />
+                      </div>
+                      <div className="text-center">
+                        <div className="text-white text-lg font-semibold mb-2">Smart Dashboard</div>
+                        <div className="text-white/70 text-sm mb-4 max-w-xs">
+                          Login or signup to unlock personalized insurance quotes and smart recommendations
+                        </div>
+                        <div className="flex gap-3">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openLoginModal();
+                            }}
+                            className="px-4 py-2 rounded-lg text-white text-sm font-medium transition-all duration-300 hover:scale-105"
+                            style={{
+                              background: 'rgba(59, 130, 246, 0.2)',
+                              backdropFilter: 'blur(10px)',
+                              border: '1px solid rgba(59, 130, 246, 0.4)',
+                              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                            }}
+                          >
+                            Login
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openSignupModal();
+                            }}
+                            className="px-4 py-2 rounded-lg text-white text-sm font-medium transition-all duration-300 hover:scale-105"
+                            style={{
+                              background: 'rgba(16, 185, 129, 0.2)',
+                              backdropFilter: 'blur(10px)',
+                              border: '1px solid rgba(16, 185, 129, 0.4)',
+                              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                            }}
+                          >
+                            Sign Up
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   </div>
                     {/* Scroll Indicator - Only show when scrollable and not at bottom */}
                   {showScrollIndicator && (

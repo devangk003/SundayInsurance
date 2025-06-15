@@ -1,15 +1,14 @@
 {
-  "name": "insurance-scraper",
+  "name": "sunday-insurance-scraper",
   "version": "1.0.0",
-  "description": "Insurance quote scraper for Insure24",
+  "description": "Insurance quote scraper and automation service for SundayInsurance platform",
+  "author": "Devang K",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "ts-node-dev --respawn src/server.ts",
+    "start": "node dist/server.js",    "dev": "ts-node-dev --respawn src/server.ts",
     "test": "jest"
   },
-  "author": "",
   "license": "Apache-2.0",
   "dependencies": {
     "@types/cors": "^2.8.19",
